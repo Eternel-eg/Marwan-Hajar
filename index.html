@@ -11,6 +11,22 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Tailwind Configuration (Fixes missing colors for the Map button) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#141E2F',
+                        gold: '#C9A84C',
+                        'gold-light': '#E2C97E',
+                        'gold-dark': '#9A7830',
+                    }
+                }
+            }
+        }
+    </script>
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -462,10 +478,10 @@
             align-items: center;
             gap: 10px;
             cursor: pointer;
-            padding: 8px 10px;
+            padding: 10px 14px;
             border: 1px solid rgba(201,168,76,0.15);
             font-family: 'Cinzel', serif;
-            font-size: 9.5px;
+            font-size: 10px;
             letter-spacing: 0.15em;
             color: rgba(200,190,170,0.6);
             transition: all 0.25s;
@@ -476,7 +492,7 @@
             background: rgba(201,168,76,0.07);
         }
         .rsvp-radio-dot {
-            width: 8px; height: 8px;
+            width: 10px; height: 10px;
             border-radius: 50%;
             border: 1px solid currentColor;
             flex-shrink: 0;
@@ -518,9 +534,12 @@
             font-size: 9px;
             letter-spacing: 0.18em;
             text-transform: uppercase;
-            padding: 9px 0;
+            padding: 11px 0;
             text-align: center;
             transition: all 0.25s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* ─── FOOTER ─── */
@@ -720,6 +739,16 @@
                              alt="Ring" loading="lazy">
                     </div>
                 </div>
+
+                <!-- ADDED: Gallery Action Buttons -->
+                <div class="grid grid-cols-2 gap-2 mt-4 reveal delay-2">
+                    <a href="https://drive.google.com/drive/u/1/folders/17EElliBCBA7E6I39k2gxptgNLuFun74kmf5U1rG_Vyt9AyV-66p--Iu-tgC-dDUGs7VaEH6A" target="_blank"
+                       class="action-btn bg-navy text-white hover:bg-gold/90 hover:text-navy"
+                       data-lang-key="viewAlbum">View Full Album</a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeKTdPPlSFnqpuH8Ov1taPNfA-phPjN9MeEiAbxt5HLDKuMWw/viewform" target="_blank"
+                       class="action-btn border border-navy text-navy hover:bg-navy hover:text-white"
+                       data-lang-key="uploadPhoto">Upload Photo</a>
+                </div>
             </div>
 
             <!-- ─── EVENT CARD ─── -->
@@ -786,7 +815,8 @@
                         <div>
                             <span class="block font-cinzel text-[9px] tracking-[0.28em] uppercase text-gold/70 mb-3"
                                   data-lang-key="rsvpAttend">Attendance</span>
-                            <div class="grid grid-cols-2 gap-2">
+                            <!-- FIXED: Changed to stack vertically on mobile to keep exact same width -->
+                            <div class="flex flex-col gap-2.5">
                                 <div>
                                     <input type="radio" id="rsvp-yes" name="attending"
                                            value="Yes" class="rsvp-radio" required>
@@ -996,6 +1026,8 @@ document.addEventListener('DOMContentLoaded', () => {
             enterButton:    'Enter',
             backButton:     '← Back',
             galleryTitle:   'Our Moments',
+            viewAlbum:      'View Full Album',
+            uploadPhoto:    'Upload Photo',
             days: 'Days', hours: 'Hours', minutes: 'Mins', seconds: 'Secs',
             countdownOver:  'Today is the day!',
             celebTitle:     'The Wedding',
@@ -1029,6 +1061,8 @@ document.addEventListener('DOMContentLoaded', () => {
             enterButton:    'دخول',
             backButton:     'عودة →',
             galleryTitle:   'لحظاتنا',
+            viewAlbum:      'عرض الألبوم',
+            uploadPhoto:    'رفع صورة',
             days: 'يوم', hours: 'ساعة', minutes: 'دقيقة', seconds: 'ثانية',
             countdownOver:  'إنه اليوم المنتظر!',
             celebTitle:     'حفل الزفاف',
