@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation - Marwan & Hajar</title>
+    
+    <link rel="icon" href="https://drive.google.com/thumbnail?id=1A9ZVt5Fbh-r2aRnb79-x_6Fj10YVQ4O8&sz=s800">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Cinzel:wght@400..900&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-gold: #D4AF37; 
+            --color-navy: #1B263B;
+            --color-cream: #FDFBF7;
+        }
+
+        /* Enforce 9:16 Aspect Ratio on Body/Wrapper */
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #1a1a1a; /* Dark background for desktop spaces */
+            color: var(--color-navy);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #mobile-container {
+            width: 100vw;
+            height: calc(100vw * 16 / 9);
+            max-height: 100vh;
+            max-width: calc(100vh * 9 / 16);
+            position: relative;
+            overflow: hidden;
+            background-color: var(--color-cream);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        /* --- PRELOADER --- */
+        #preloader {
+            position: absolute; /* Changed to absolute to stay inside container */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-navy);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease-out, visibility 0.8s;
+        }
+        
+        .loader-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--color-gold);
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* --- Typography Classes --- */
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .font-dancing-script { font-family: 'Dancing Script', cursive; }
+        .font-tajawal { font-family: 'Tajawal', sans-serif; }
+
+        .text-gold { color: var(--color-gold); }
+        .bg-gold { background-color: var(--color-gold); }
+        .border-gold { border-color: var(--color-gold); }
+
+        /* --- Page 1 (Entry) - Door Animation Styles --- */
+        #page1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 50; 
+            perspective: 1500px;
+            overflow: hidden;
+            pointer-events: auto;
+            transition: pointer-events 0s linear 1.5s;
+        }
+        
+        .show-page2 #page1 {
+            pointer-events: none;
+        }
+
+        .door {
+            position: absolute;
+            top: 0;
+            width: 50.2%; 
+            height: 100%;
+            overflow: hidden; 
+            transition: transform 2.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+            transform-style: preserve-3d;
+            z-index: 10;
+            background-color: var(--color-navy);
+        }
+
+        .door-inner {
+            position: absolute;
+            top: 0;
+            width: 200%; 
+            height: 100%;
+            background-color: var(--color-navy); 
+            background-image: url('https://drive.google.com/thumbnail?id=1f_g428ADuRxSe5HIzT5BPZUZHpEMdbeX&sz=w1920');
+            background-size: cover; 
+            background-position: center; 
+            pointer-events: none;
+        }
+
+        .door-left { left: 0; transform-origin: left center; }
+        .door-left .door-inner { left: 0; }
+        .door-right { right: 0; transform-origin: right center; }
+        .door-right .door-inner { left: -100%; }
+
+        .door::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.2); 
+            z-index: 2; 
+        }
+
+        .show-page2 .door-left { transform: rotateY(-110deg); }
+        .show-page2 .door-right { transform: rotateY(110deg); }
+
+        #invitation-overlay {
+            transition: opacity 1s ease 0.2s;
+            opacity: 1;
+        }
+        .show-page2 #invitation-overlay {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* --- Page 2 (Details) --- */
+        #page2 {
+            position: absolute;
+            inset: 0;
+            z-index: 20; 
+            background: radial-gradient(circle at 50% 50%, #FDFBF7 0%, #f4f1ea 100%);
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-smooth: true;
+            visibility: hidden; 
+            opacity: 0;
+            transition: opacity 1s ease-in;
+        }
+        
+        .show-page2 #page2 {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Scrollbar styling for page2 inside container */
+        #page2::-webkit-scrollbar { width: 6px; }
+        #page2::-webkit-scrollbar-track { background: #FDFBF7; }
+        #page2::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 4px; }
+
+        /* --- Scroll Reveal Animations --- */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-1 { transition-delay: 100ms; }
+        .stagger-2 { transition-delay: 200ms; }
+
+        /* --- Floating Particles Canvas --- */
+        #particles-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 60; 
+            pointer-events: none;
+        }
+        .show-page2 #particles-canvas { opacity: 0; transition: opacity 1s; }
+
+        /* --- Custom Button --- */
+        .btn-royal {
+            background: linear-gradient(135deg, #1B263B 0%, #304a6e 100%);
+            color: #D4AF37;
+            border: 1px solid #D4AF37;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 50; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .btn-royal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
+            transition: left 0.6s ease;
+            z-index: -1;
+        }
+        .btn-royal:hover::before { left: 100%; }
+        .btn-royal:hover {
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            transform: translateY(-3px) scale(1.05);
+            color: white;
+            border-color: white;
+        }
+
+        /* --- Gallery --- */
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 4px;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            z-index: 10;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .gallery-item:hover img { transform: scale(1.15); }
+
+        /* Pulse for countdown */
+        @keyframes pulse-soft {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(0.95); opacity: 0.9; }
+        }
+        .animate-pulse-soft { animation: pulse-soft 2s infinite ease-in-out; }
+        
+        .eternel-copyright {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 2px;
+            font-size: 9px;
+            margin-top: 15px;
+            display: block;
+            color: #D4AF37;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+<div id="mobile-container">
+    <div id="preloader">
+        <img src="logo.png" alt="Logo" class="w-24 md:w-32 mb-6 animate-pulse" loading="eager" onerror="this.style.display='none'">
+        <div class="loader-spinner"></div>
+        <div class="font-cinzel text-gold text-xs tracking-widest uppercase" data-lang-key="loading">Loading Invitation...</div>
+    </div>
+
+    <div id="page1">
+        <div class="door door-left">
+            <div class="door-inner"></div>
+        </div>
+        <div class="door door-right">
+            <div class="door-inner"></div>
+        </div>
+        
+        <canvas id="particles-canvas"></canvas>
+
+        <div class="absolute top-6 right-6 z-50 flex items-center gap-3">
+            <button id="lang-toggle-btn" class="bg-[#1B263B]/80 backdrop-blur border border-gold/50 text-gold text-xs font-cinzel tracking-widest py-1 px-3 rounded hover:bg-gold hover:text-[#1B263B] transition-colors duration-300">
+                العربية
+            </button>
+            <button id="audio-control" class="bg-[#1B263B]/80 backdrop-blur border border-gold/50 text-gold p-2 rounded-full hover:bg-gold hover:text-[#1B263B] transition-colors duration-300 group">
+                <svg id="speaker-icon" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                </svg>
+            </button>
+        </div>
+
+        <div id="invitation-overlay" class="absolute left-1/2 top-2/3 -translate-x-1/2 z-50 flex flex-col items-center text-center p-6">
+            <button id="join-us-btn" class="btn-royal font-cinzel font-bold py-2.5 px-8 text-xs tracking-[0.2em] uppercase rounded-sm cursor-pointer transform hover:scale-105 transition-transform duration-300">
+                <span data-lang-key="enterButton">Enter</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="page2">
+        <button id="back-btn" class="fixed top-4 left-4 z-50 bg-white/90 backdrop-blur text-[#1B263B] py-1.5 px-3 rounded-sm shadow-md font-cinzel text-[10px] tracking-wider border border-[#1B263B]/10 hover:bg-[#1B263B] hover:text-white transition-all duration-300 hover:shadow-lg transform hover:-translate-x-1">
+            <span data-lang-key="backButton">← Back</span>
+        </button>
+
+        <div class="max-w-md mx-auto text-center px-6 py-16 relative z-10">
+
+            <div class="reveal-on-scroll mt-6">
+                <p class="font-cinzel text-gold text-xs tracking-[0.2em] uppercase mb-4" data-lang-key="togetherFamilies">Together with their families</p>
+                <h2 class="font-playfair text-4xl text-[#1B263B] mb-2" data-lang-key="coupleNames">Marwan & Hajar</h2>
+                <div class="text-gold text-2xl mb-2">✦</div>
+                <p class="font-playfair text-sm text-gray-600 max-w-2xl mx-auto leading-relaxed mb-6" data-lang-key="inviteText">invite you to celebrate their wedding</p>
+                <h3 class="font-cinzel text-xl text-[#1B263B] mb-6 tracking-widest font-bold" data-lang-key="weddingDate">July 3rd 2026</h3>
+                <div class="w-12 h-1 bg-gold mx-auto mb-10 rounded-full"></div>
+            </div>
+
+            <div id="countdown" class="flex flex-wrap justify-center gap-3 mb-16 reveal-on-scroll stagger-1">
+                </div>
+
+            <div class="mb-16">
+                <h3 class="font-cinzel text-lg text-[#1B263B] mb-6 tracking-widest uppercase reveal-on-scroll" data-lang-key="galleryTitle">Our Moments</h3>
+                
+                <div class="grid grid-cols-2 gap-3 h-[200px]">
+                    <div class="gallery-item col-span-1 reveal-on-scroll stagger-1">
+                        <img src="https://drive.google.com/thumbnail?id=1bqspfFP_3vq45MbMNxwv69AmZLBGE9Ke&sz=s800" alt="Couple" loading="lazy">
+                    </div>
+                    <div class="gallery-item col-span-1 reveal-on-scroll stagger-2">
+                        <img src="https://drive.google.com/thumbnail?id=1-VemOKAkBZF70mB3OrzJjd4iPHVBmLMa&sz=s800" alt="Ring" loading="lazy">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-16 text-left rtl:text-right px-2">
+                <div class="bg-white p-6 shadow-xl border-t-4 border-gold reveal-on-scroll stagger-1 transform hover:-translate-y-1 hover:shadow-2xl transition-all duration-500 rounded-sm">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="text-2xl text-gold animate-bounce" style="animation-duration: 3s;">🥂</div>
+                        <h3 class="font-playfair text-xl font-bold text-[#1B263B]" data-lang-key="celebTitle">The Wedding</h3>
+                    </div>
+                    <div class="space-y-3 text-gray-600 font-light text-sm mb-6">
+                        <p class="flex items-center gap-2"><span class="font-bold text-[#1B263B]">🕒</span> <span data-lang-key="celebTime">8:30 PM sharp (actual time)</span></p>
+                        <p class="flex items-start gap-2"><span class="font-bold text-[#1B263B]">📍</span> <span data-lang-key="celebLocation">Dusit hotel</span></p>
+                        <p class="text-xs text-gray-400 pl-6" data-lang-key="celebAddress">Dusit ballroom</p>
+                        <div class="w-full h-px bg-gray-100 my-2"></div>
+                        <p class="flex items-center gap-2 font-medium text-[#1B263B] pt-1"><span class="font-bold">👗👔</span> <span data-lang-key="dressCode">Dress Code</span></p>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="https://maps.app.goo.gl/xuNfErX5iLXQ2mEW8" target="_blank" class="flex-1 text-center bg-[#1B263B] text-white py-2 rounded-sm text-[10px] uppercase tracking-wide hover:bg-gold transition-colors duration-300 shadow-md" data-lang-key="mapButton">Map</a>
+                        <a id="cal-celeb" href="#" target="_blank" class="flex-1 text-center border border-[#1B263B] text-[#1B263B] py-2 rounded-sm text-[10px] uppercase tracking-wide hover:bg-[#1B263B] hover:text-white transition-colors duration-300" data-lang-key="calendarButton">Calendar</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-[#1B263B] text-white p-6 shadow-2xl reveal-on-scroll relative overflow-hidden rounded-sm group">
+                <div class="absolute -top-10 -right-10 w-32 h-32 border border-white/5 rounded-full transition-transform duration-1000 group-hover:scale-150"></div>
+                
+                <div class="relative z-10">
+                    <h3 class="font-cinzel text-xl mb-1 text-gold" data-lang-key="rsvpTitle">RSVP</h3>
+                    <p class="font-playfair italic text-gray-400 text-xs mb-6" data-lang-key="rsvpSubtitle">Kindly respond by June 15th</p>
+
+                    <form id="rsvp-form" class="text-left rtl:text-right space-y-4">
+                        <div class="group/input">
+                            <label for="name" class="block text-gold text-[10px] tracking-widest uppercase mb-1 group-focus-within/input:text-white transition-colors" data-lang-key="rsvpName">Full Name</label>
+                            <input type="text" id="name" name="name" class="w-full bg-white/5 border border-white/20 text-white px-3 py-2 text-sm focus:outline-none focus:border-gold focus:bg-white/10 transition-all duration-300" required>
+                        </div>
+
+                        <div>
+                            <span class="block text-gold text-[10px] tracking-widest uppercase mb-2" data-lang-key="rsvpAttend">Attendance</span>
+                            <div class="space-y-2">
+                                <label class="flex items-center cursor-pointer group p-1.5 hover:bg-white/5 rounded transition-colors">
+                                    <input type="radio" name="attending" value="Yes" class="h-3 w-3 text-gold border-white/20 focus:ring-gold bg-transparent" required>
+                                    <span class="ml-2 text-gray-300 group-hover:text-white transition-colors text-xs" data-lang-key="rsvpYes">Joyfully Accept</span>
+                                </label>
+                                <label class="flex items-center cursor-pointer group p-1.5 hover:bg-white/5 rounded transition-colors">
+                                    <input type="radio" name="attending" value="No" class="h-3 w-3 text-gold border-white/20 focus:ring-gold bg-transparent">
+                                    <span class="ml-2 text-gray-300 group-hover:text-white transition-colors text-xs" data-lang-key="rsvpNo">Regretfully Decline</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="guests-section" class="hidden transition-all duration-500 ease-in-out opacity-0 transform -translate-y-2">
+                            <label for="guests" class="block text-gold text-[10px] tracking-widest uppercase mb-1" data-lang-key="rsvpGuests">Number of Guests</label>
+                            <select id="guests" name="guests" class="w-full bg-white/5 border border-white/20 text-white px-3 py-2 text-sm focus:outline-none focus:border-gold focus:bg-white/10 transition-all duration-300 appearance-none cursor-pointer">
+                                <option value="1" class="bg-[#1B263B] text-white">1 (Just Me)</option>
+                                <option value="2" class="bg-[#1B263B] text-white">2 (+1 Guest)</option>
+                                <option value="3" class="bg-[#1B263B] text-white">3 (+2 Guests)</option>
+                                <option value="4" class="bg-[#1B263B] text-white">4 (+3 Guests)</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" id="rsvp-submit-btn" class="w-full bg-gold text-[#1B263B] font-bold py-2.5 px-4 uppercase tracking-widest hover:bg-white transition-all duration-300 shadow-lg mt-2 disabled:bg-gray-500 disabled:cursor-not-allowed text-xs transform active:scale-95">
+                            <span data-lang-key="rsvpSubmit">Confirm</span>
+                        </button>
+                    </form>
+                    <div id="rsvp-message" class="mt-4 text-center font-playfair italic text-xs min-h-[16px]"></div>
+                </div>
+            </div>
+
+            <footer class="mt-16 pb-6 text-[#1B263B]/50 font-cinzel text-[10px] tracking-widest reveal-on-scroll">
+                <p data-lang-key="footer">Marwan & Hajar ✦ 2026</p>
+                <span class="eternel-copyright">E T E R N E L . E G © 2026. All Rights Reserved.</span>
+            </footer>
+        </div>
+    </div>
+</div> <audio id="background-music" loop>
+        <source src="https://drive.google.com/file/d/1v4WxnmkD6wfi1D7200HmvSnXPBCzHtO0" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // --- PRELOADER LOGIC ---
+        window.onload = function() {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+            }, 800);
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const joinUsBtn = document.getElementById('join-us-btn');
+            const backBtn = document.getElementById('back-btn');
+            const mobileContainer = document.getElementById('mobile-container');
+            const langToggleBtn = document.getElementById('lang-toggle-btn');
+            
+            // Audio elements
+            const bgMusic = document.getElementById('background-music');
+            const audioControl = document.getElementById('audio-control');
+
+            // --- Particle System ---
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let particlesArray;
+
+            function setCanvasSize() {
+                canvas.width = mobileContainer.clientWidth;
+                canvas.height = mobileContainer.clientHeight;
+            }
+            setCanvasSize();
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 1.5;
+                    this.speedX = (Math.random() * 0.4) - 0.2;
+                    this.speedY = (Math.random() * 0.4) - 0.2;
+                    this.opacity = Math.random() * 0.5 + 0.1;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.opacity > 0.01) this.opacity -= 0.002;
+                    else this.opacity = Math.random() * 0.5 + 0.1;
+                    
+                    if (this.x > canvas.width) this.x = 0;
+                    if (this.x < 0) this.x = canvas.width;
+                    if (this.y > canvas.height) this.y = 0;
+                    if (this.y < 0) this.y = canvas.height;
+                }
+                draw() {
+                    ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            function initParticles() {
+                particlesArray = [];
+                for (let i = 0; i < 60; i++) { // Adjusted for mobile view
+                    particlesArray.push(new Particle());
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].update();
+                    particlesArray[i].draw();
+                }
+                requestAnimationFrame(animateParticles);
+            }
+
+            initParticles();
+            animateParticles();
+
+            window.addEventListener('resize', () => {
+                setCanvasSize();
+                initParticles();
+            });
+
+            // --- Scroll Reveal Observer ---
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -20px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal-on-scroll');
+            revealElements.forEach(el => observer.observe(el));
+
+            // --- Navigation Animations ---
+            joinUsBtn.addEventListener('click', () => {
+                mobileContainer.classList.add('show-page2');
+                if (bgMusic.paused) {
+                    bgMusic.play().catch(e => console.log("Auto-play prevented"));
+                }
+                setTimeout(() => {
+                    document.getElementById('page2').style.overflow = 'auto';
+                }, 1000);
+            });
+
+            backBtn.addEventListener('click', () => {
+                document.getElementById('page2').scrollTo({top: 0, behavior: 'smooth'});
+                setTimeout(() => {
+                    mobileContainer.classList.remove('show-page2');
+                }, 300);
+            });
+
+            audioControl.addEventListener('click', () => {
+                if (bgMusic.paused) {
+                    bgMusic.play();
+                    audioControl.classList.remove('opacity-50');
+                } else {
+                    bgMusic.pause();
+                    audioControl.classList.add('opacity-50');
+                }
+            });
+
+            // --- Translations ---
+            let currentLang = 'en';
+            const translations = {
+                en: {
+                    loading: "Loading Invitation...",
+                    togetherFamilies: "Together with their families",
+                    coupleNames: "Marwan & Hajar",
+                    inviteText: "invite you to celebrate their wedding",
+                    weddingDate: "July 3rd 2026",
+                    enterButton: "Enter",
+                    backButton: "← Back",
+                    galleryTitle: "Our Moments",
+                    days: "Days", hours: "Hours", minutes: "Mins", seconds: "Secs",
+                    countdownOver: "Today is the day!",
+                    celebTitle: "The Wedding",
+                    celebTime: "8:30 pm sharp actual time",
+                    celebLocation: "Dusit hotel",
+                    celebAddress: "Dusit ballroom",
+                    dressCode: "Dress code: Formal",
+                    mapButton: "Map", calendarButton: "Calendar",
+                    rsvpTitle: "RSVP",
+                    rsvpSubtitle: "Kindly respond by June 15th",
+                    rsvpName: "Full Name",
+                    rsvpAttend: "Attendance",
+                    rsvpYes: "Joyfully Accept",
+                    rsvpNo: "Regretfully Decline",
+                    rsvpGuests: "Number of Guests",
+                    rsvpSubmit: "Confirm",
+                    rsvpSuccess: "Thank you. We look forward to seeing you.",
+                    rsvpError: "An error occurred. Please try again.",
+                    rsvpLoading: "Sending...",
+                    footer: "Marwan & Hajar ✦ 2026"
+                },
+                ar: {
+                    loading: "جاري التحميل...",
+                    togetherFamilies: "بالتشارك مع عائلاتنا",
+                    coupleNames: "مروان و هاجر",
+                    inviteText: "ندعوكم للاحتفال بزفافنا",
+                    weddingDate: "٣ يوليو ٢٠٢٦",
+                    enterButton: "دخول",
+                    backButton: "عودة →",
+                    galleryTitle: "لحظاتنا",
+                    days: "يوم", hours: "ساعة", minutes: "دقيقة", seconds: "ثانية",
+                    countdownOver: "إنه اليوم المنتظر!",
+                    celebTitle: "حفل الزفاف",
+                    celebTime: "٨:٣٠ مساءً بالضبط",
+                    celebLocation: "فندق دوسيت",
+                    celebAddress: "قاعة دوسيت",
+                    dressCode: "قواعد اللباس (Dress Code)",
+                    mapButton: "الخريطة", calendarButton: "التقويم",
+                    rsvpTitle: "تأكيد الحضور",
+                    rsvpSubtitle: "يرجى الرد قبل ١٥ يونيو",
+                    rsvpName: "الاسم الكامل",
+                    rsvpAttend: "الحضور",
+                    rsvpYes: "تأكيد الحضور",
+                    rsvpNo: "أعتذر عن الحضور",
+                    rsvpGuests: "عدد الأفراد",
+                    rsvpSubmit: "تأكيد",
+                    rsvpSuccess: "شكراً لك. بانتظار تشريفكم.",
+                    rsvpError: "حدث خطأ. يرجى المحاولة مرة أخرى.",
+                    rsvpLoading: "جار الإرسال...",
+                    footer: "مروان و هاجر ✦ ٢٠٢٦"
+                }
+            };
+
+            function setLanguage(lang) {
+                currentLang = lang;
+                const elements = document.querySelectorAll('[data-lang-key]');
+                elements.forEach(el => {
+                    const key = el.dataset.langKey;
+                    if (translations[lang][key]) {
+                        el.style.opacity = '0';
+                        setTimeout(() => {
+                            el.innerHTML = translations[lang][key];
+                            el.style.opacity = '1';
+                        }, 200);
+                    }
+                });
+
+                if (lang === 'ar') {
+                    document.documentElement.setAttribute('dir', 'rtl');
+                    document.documentElement.setAttribute('lang', 'ar');
+                    langToggleBtn.textContent = 'English';
+                    document.body.classList.add('font-tajawal');
+                } else {
+                    document.documentElement.setAttribute('dir', 'ltr');
+                    document.documentElement.setAttribute('lang', 'en');
+                    langToggleBtn.textContent = 'العربية';
+                    document.body.classList.remove('font-tajawal');
+                }
+                updateCountdown(); 
+            }
+
+            langToggleBtn.addEventListener('click', () => {
+                setLanguage(currentLang === 'en' ? 'ar' : 'en');
+            });
+
+            // --- Countdown ---
+            const countdownEl = document.getElementById('countdown');
+            const weddingDate = new Date('2026-07-03T20:30:00+03:00').getTime();
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = weddingDate - now;
+
+                if (distance < 0) {
+                    countdownEl.innerHTML = `<div class="text-center w-full font-playfair text-xl text-gold animate-bounce">${translations[currentLang].countdownOver}</div>`;
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+
+                const makeBox = (val, label, animate = false) => `
+                    <div class="flex flex-col items-center justify-center border border-[#1B263B]/10 bg-white w-14 h-16 rounded-sm shadow-md transition-transform hover:scale-105 ${animate ? 'animate-pulse-soft' : ''}">
+                        <span class="font-playfair font-bold text-xl text-[#1B263B]">${val}</span>
+                        <span class="font-cinzel text-[8px] uppercase tracking-wider text-gray-400 mt-1">${label}</span>
+                    </div>
+                `;
+
+                countdownEl.innerHTML = `
+                    ${makeBox(days, translations[currentLang].days)}
+                    ${makeBox(hours, translations[currentLang].hours)}
+                    ${makeBox(minutes, translations[currentLang].minutes)}
+                    ${makeBox(seconds, translations[currentLang].seconds, true)}
+                `;
+            }
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+
+            // --- RSVP Logic ---
+            const rsvpForm = document.getElementById('rsvp-form');
+            const guestsSection = document.getElementById('guests-section');
+            const rsvpMessage = document.getElementById('rsvp-message');
+            const rsvpSubmitBtn = document.getElementById('rsvp-submit-btn');
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyGqz-MLzmVakhe7N-vs-chQOGC3OLyBb4CZxt79_MPtdqHgGI2psPQYavps0wZA9n9bw/exec'; 
+
+            const attendingOptions = ['Yes'];
+
+            rsvpForm.attending.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    if (attendingOptions.includes(e.target.value)) {
+                        guestsSection.classList.remove('hidden');
+                        setTimeout(() => {
+                            guestsSection.classList.remove('opacity-0', '-translate-y-2');
+                        }, 10);
+                        document.getElementById('guests').required = true;
+                    } else {
+                        guestsSection.classList.add('opacity-0', '-translate-y-2');
+                        setTimeout(() => {
+                            guestsSection.classList.add('hidden');
+                        }, 300);
+                        document.getElementById('guests').required = false;
+                    }
+                });
+            });
+
+            rsvpForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                rsvpSubmitBtn.disabled = true;
+                rsvpSubmitBtn.querySelector('span').textContent = translations[currentLang].rsvpLoading;
+
+                const formData = new FormData(rsvpForm);
+                const attendingValue = formData.get('attending');
+                
+                const data = {
+                    name: formData.get('name'),
+                    attending: attendingValue,
+                    guests: attendingOptions.includes(attendingValue) ? formData.get('guests') : 0
+                };
+
+                fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    cache: 'no-cache',
+                    headers: {'Content-Type': 'application/json'},
+                    redirect: 'follow',
+                    body: JSON.stringify(data)
+                })
+                .then(res => {
+                    rsvpMessage.textContent = translations[currentLang].rsvpSuccess;
+                    rsvpMessage.className = 'mt-4 text-center text-green-400 text-xs font-cinzel animate-[fadeIn_0.5s_ease]';
+                    rsvpForm.reset();
+                    guestsSection.classList.add('hidden', 'opacity-0');
+                })
+                .catch(error => {
+                    rsvpMessage.textContent = translations[currentLang].rsvpError;
+                    rsvpMessage.className = 'mt-4 text-center text-red-400 text-xs font-cinzel animate-[fadeIn_0.5s_ease]';
+                })
+                .finally(() => {
+                    rsvpSubmitBtn.disabled = false;
+                    rsvpSubmitBtn.querySelector('span').textContent = translations[currentLang].rsvpSubmit;
+                });
+            });
+
+            // Calendar & Maps logic
+            function generateGoogleCalendarLink({ title, startTime, endTime, location, details }) {
+                const toUtcString = (date) => date.toISOString().replace(/[-:.]/g, '').slice(0, 15) + 'Z';
+                const baseUrl = 'https://www.google.com/calendar/render?action=TEMPLATE';
+                const params = new URLSearchParams({
+                    text: title,
+                    dates: `${toUtcString(startTime)}/${toUtcString(endTime)}`,
+                    location: location,
+                    details: details
+                });
+                return `${baseUrl}&${params.toString()}`;
+            }
+
+            const celebEvent = {
+                title: 'Wedding: Marwan & Hajar',
+                startTime: new Date('2026-07-03T20:30:00+03:00'),
+                endTime: new Date('2026-07-04T01:00:00+03:00'),
+                location: 'Dusit Hotel, Dusit ballroom',
+                details: 'Wedding celebration.'
+            };
+
+            document.getElementById('cal-celeb').href = generateGoogleCalendarLink(celebEvent);
+
+            setLanguage('en');
+        });
+    </script>
+</body>
+</html>
