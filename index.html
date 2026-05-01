@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wedding Invitation - Marwan & Hajar</title>
     
+    <!-- Favicon -->
     <link rel="icon" href="https://drive.google.com/thumbnail?id=1A9ZVt5Fbh-r2aRnb79-x_6Fj10YVQ4O8&sz=s800">
     
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Cinzel:wght@400..900&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
@@ -325,17 +328,18 @@
             </div>
 
             <div id="countdown" class="flex flex-wrap justify-center gap-3 mb-16 reveal-on-scroll stagger-1">
-                </div>
+            </div>
 
             <div class="mb-16">
                 <h3 class="font-cinzel text-lg text-[#1B263B] mb-6 tracking-widest uppercase reveal-on-scroll" data-lang-key="galleryTitle">Our Moments</h3>
                 
-                <div class="grid grid-cols-2 gap-3 h-[200px]">
-                    <div class="gallery-item col-span-1 reveal-on-scroll stagger-1">
-                        <img src="https://drive.google.com/thumbnail?id=1bqspfFP_3vq45MbMNxwv69AmZLBGE9Ke&sz=s800" alt="Couple" loading="lazy">
+                <!-- Gallery: Two tall side-by-side images -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="gallery-item reveal-on-scroll aspect-[9/16] h-full w-full">
+                        <img src="https://drive.google.com/thumbnail?id=15WVIhbEazoDXkmop6e0bdmwb7Jik7iKP&sz=s800" alt="Couple" loading="lazy" class="w-full h-full object-cover">
                     </div>
-                    <div class="gallery-item col-span-1 reveal-on-scroll stagger-2">
-                        <img src="https://drive.google.com/thumbnail?id=1-VemOKAkBZF70mB3OrzJjd4iPHVBmLMa&sz=s800" alt="Ring" loading="lazy">
+                    <div class="gallery-item reveal-on-scroll aspect-[9/16] h-full w-full stagger-1">
+                        <img src="https://drive.google.com/thumbnail?id=1FaqwrE2QhsA197WtluSKpGh0U9KC4Yw7&sz=s800" alt="Ring" loading="lazy" class="w-full h-full object-cover">
                     </div>
                 </div>
             </div>
@@ -351,7 +355,7 @@
                         <p class="flex items-start gap-2"><span class="font-bold text-[#1B263B]">📍</span> <span data-lang-key="celebLocation">Dusit hotel</span></p>
                         <p class="text-xs text-gray-400 pl-6" data-lang-key="celebAddress">Dusit ballroom</p>
                         <div class="w-full h-px bg-gray-100 my-2"></div>
-                        <p class="flex items-center gap-2 font-medium text-[#1B263B] pt-1"><span class="font-bold">👗👔</span> <span data-lang-key="dressCode">Dress Code</span></p>
+                        <p class="flex items-center gap-2 font-medium text-[#1B263B] pt-1"><span class="font-bold">👗👔</span> <span data-lang-key="dressCode">Dress Code: Formal</span></p>
                     </div>
                     <div class="flex gap-2">
                         <a href="https://maps.app.goo.gl/xuNfErX5iLXQ2mEW8" target="_blank" class="flex-1 text-center bg-[#1B263B] text-white py-2 rounded-sm text-[10px] uppercase tracking-wide hover:bg-gold transition-colors duration-300 shadow-md" data-lang-key="mapButton">Map</a>
@@ -360,7 +364,7 @@
                 </div>
             </div>
 
-            <div class="bg-[#1B263B] text-white p-6 shadow-2xl reveal-on-scroll relative overflow-hidden rounded-sm group">
+            <div class="bg-[#1B263B] text-white p-6 shadow-2xl reveal-on-scroll relative overflow-hidden rounded-sm group mb-20">
                 <div class="absolute -top-10 -right-10 w-32 h-32 border border-white/5 rounded-full transition-transform duration-1000 group-hover:scale-150"></div>
                 
                 <div class="relative z-10">
@@ -387,17 +391,19 @@
                             </div>
                         </div>
 
-                        <div id="guests-section" class="hidden transition-all duration-500 ease-in-out opacity-0 transform -translate-y-2">
-                            <label for="guests" class="block text-gold text-[10px] tracking-widest uppercase mb-1" data-lang-key="rsvpGuests">Number of Guests</label>
-                            <select id="guests" name="guests" class="w-full bg-white/5 border border-white/20 text-white px-3 py-2 text-sm focus:outline-none focus:border-gold focus:bg-white/10 transition-all duration-300 appearance-none cursor-pointer">
-                                <option value="1" class="bg-[#1B263B] text-white">1 (Just Me)</option>
-                                <option value="2" class="bg-[#1B263B] text-white">2 (+1 Guest)</option>
-                                <option value="3" class="bg-[#1B263B] text-white">3 (+2 Guests)</option>
-                                <option value="4" class="bg-[#1B263B] text-white">4 (+3 Guests)</option>
-                            </select>
+                        <!-- Number input for additional guests, validation logic added in JS -->
+                        <div id="guests-section" class="hidden transition-all duration-500 ease-in-out opacity-0 transform -translate-y-2 group/input">
+                            <label for="guests" class="block text-gold text-[10px] tracking-widest uppercase mb-1" data-lang-key="rsvpGuestsCount">Number of additional guests</label>
+                            <input type="number" id="guests" name="guests" class="w-full bg-white/5 border border-white/20 text-white px-3 py-2 text-sm focus:outline-none focus:border-gold focus:bg-white/10 transition-all duration-300" min="0">
                         </div>
 
-                        <button type="submit" id="rsvp-submit-btn" class="w-full bg-gold text-[#1B263B] font-bold py-2.5 px-4 uppercase tracking-widest hover:bg-white transition-all duration-300 shadow-lg mt-2 disabled:bg-gray-500 disabled:cursor-not-allowed text-xs transform active:scale-95">
+                        <!-- Text area for message to the couple -->
+                        <div class="group/input">
+                            <label for="message" class="block text-gold text-[10px] tracking-widest uppercase mb-1" data-lang-key="rsvpMessage">Leave a message for the couple</label>
+                            <textarea id="message" name="message" rows="3" class="w-full bg-white/5 border border-white/20 text-white px-3 py-2 text-sm focus:outline-none focus:border-gold focus:bg-white/10 transition-all duration-300"></textarea>
+                        </div>
+
+                        <button type="submit" id="rsvp-submit-btn" class="w-full bg-gold text-[#1B263B] font-bold py-2.5 px-4 uppercase tracking-widest hover:bg-white transition-all duration-300 shadow-lg disabled:bg-gray-500 disabled:cursor-not-allowed text-xs transform active:scale-95 mt-4">
                             <span data-lang-key="rsvpSubmit">Confirm</span>
                         </button>
                     </form>
@@ -405,13 +411,18 @@
                 </div>
             </div>
 
-            <footer class="mt-16 pb-6 text-[#1B263B]/50 font-cinzel text-[10px] tracking-widest reveal-on-scroll">
+            <footer class="pb-6 text-[#1B263B]/50 font-cinzel text-[10px] tracking-widest reveal-on-scroll mt-20">
                 <p data-lang-key="footer">Marwan & Hajar ✦ 2026</p>
                 <span class="eternel-copyright">E T E R N E L . E G © 2026. All Rights Reserved.</span>
             </footer>
         </div>
     </div>
-</div> <audio id="background-music" loop>
+</div> 
+
+    <!-- Audio Element pointing to a local music.mp3 file -->
+    <audio id="background-music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+        <!-- Fallback to original drive file just in case local file is missing -->
         <source src="https://drive.google.com/file/d/1v4WxnmkD6wfi1D7200HmvSnXPBCzHtO0" type="audio/mpeg">
     </audio>
 
@@ -559,10 +570,10 @@
                     days: "Days", hours: "Hours", minutes: "Mins", seconds: "Secs",
                     countdownOver: "Today is the day!",
                     celebTitle: "The Wedding",
-                    celebTime: "8:30 pm sharp actual time",
+                    celebTime: "8:30 PM sharp (actual time)",
                     celebLocation: "Dusit hotel",
                     celebAddress: "Dusit ballroom",
-                    dressCode: "Dress code: Formal",
+                    dressCode: "Dress Code: Formal",
                     mapButton: "Map", calendarButton: "Calendar",
                     rsvpTitle: "RSVP",
                     rsvpSubtitle: "Kindly respond by June 15th",
@@ -570,11 +581,13 @@
                     rsvpAttend: "Attendance",
                     rsvpYes: "Joyfully Accept",
                     rsvpNo: "Regretfully Decline",
-                    rsvpGuests: "Number of Guests",
+                    rsvpGuestsCount: "Number of additional guests",
+                    rsvpMessage: "Leave a message for the couple",
                     rsvpSubmit: "Confirm",
                     rsvpSuccess: "Thank you. We look forward to seeing you.",
                     rsvpError: "An error occurred. Please try again.",
                     rsvpLoading: "Sending...",
+                    coupleError: "Only couples allowed (Max 2 people).",
                     footer: "Marwan & Hajar ✦ 2026"
                 },
                 ar: {
@@ -592,7 +605,7 @@
                     celebTime: "٨:٣٠ مساءً بالضبط",
                     celebLocation: "فندق دوسيت",
                     celebAddress: "قاعة دوسيت",
-                    dressCode: "قواعد اللباس (Dress Code)",
+                    dressCode: "قواعد اللباس: رسمي",
                     mapButton: "الخريطة", calendarButton: "التقويم",
                     rsvpTitle: "تأكيد الحضور",
                     rsvpSubtitle: "يرجى الرد قبل ١٥ يونيو",
@@ -600,11 +613,13 @@
                     rsvpAttend: "الحضور",
                     rsvpYes: "تأكيد الحضور",
                     rsvpNo: "أعتذر عن الحضور",
-                    rsvpGuests: "عدد الأفراد",
+                    rsvpGuestsCount: "عدد الأفراد الإضافيين",
+                    rsvpMessage: "أرسل رسالة للعروسين",
                     rsvpSubmit: "تأكيد",
                     rsvpSuccess: "شكراً لك. بانتظار تشريفكم.",
                     rsvpError: "حدث خطأ. يرجى المحاولة مرة أخرى.",
                     rsvpLoading: "جار الإرسال...",
+                    coupleError: "يسمح فقط بحضور شخصين (كوبل كحد أقصى).",
                     footer: "مروان و هاجر ✦ ٢٠٢٦"
                 }
             };
@@ -681,6 +696,8 @@
             const guestsSection = document.getElementById('guests-section');
             const rsvpMessage = document.getElementById('rsvp-message');
             const rsvpSubmitBtn = document.getElementById('rsvp-submit-btn');
+            
+            // NOTE: Make sure to update this with your actual Google Apps Script URL if you are saving this!
             const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyGqz-MLzmVakhe7N-vs-chQOGC3OLyBb4CZxt79_MPtdqHgGI2psPQYavps0wZA9n9bw/exec'; 
 
             const attendingOptions = ['Yes'];
@@ -699,6 +716,7 @@
                             guestsSection.classList.add('hidden');
                         }, 300);
                         document.getElementById('guests').required = false;
+                        document.getElementById('guests').value = '';
                     }
                 });
             });
@@ -711,10 +729,22 @@
                 const formData = new FormData(rsvpForm);
                 const attendingValue = formData.get('attending');
                 
+                // --- RSVP Couples Validation Logic ---
+                // "guests" input is the number of ADDITIONAL guests.
+                // 1 Main person + >1 additional guests = more than 2 people.
+                if (attendingValue === 'Yes' && formData.get('guests') && parseInt(formData.get('guests')) > 1) {
+                    rsvpMessage.textContent = translations[currentLang].coupleError;
+                    rsvpMessage.className = 'mt-4 text-center text-red-400 text-xs font-cinzel animate-[fadeIn_0.5s_ease]';
+                    rsvpSubmitBtn.disabled = false;
+                    rsvpSubmitBtn.querySelector('span').textContent = translations[currentLang].rsvpSubmit;
+                    return; // Prevent form submission
+                }
+
                 const data = {
                     name: formData.get('name'),
                     attending: attendingValue,
-                    guests: attendingOptions.includes(attendingValue) ? formData.get('guests') : 0
+                    guests: attendingOptions.includes(attendingValue) ? formData.get('guests') : 0,
+                    message: formData.get('message') // Grab the text area message
                 };
 
                 fetch(SCRIPT_URL, {
