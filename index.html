@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Wedding Invitation - Marwan & Hajar</title>
     
     <!-- Favicon -->
@@ -14,796 +14,1155 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Cinzel:wght@400..900&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cinzel:wght@400;500;700&family=Lato:wght@300;400&family=Dancing+Script:wght@400;600;700&family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --color-gold: #D4AF37; 
-            --color-navy: #1B263B;
-            --color-cream: #FDFBF7;
+            --gold:        #C9A84C;
+            --gold-light:  #E2C97E;
+            --gold-dark:   #9A7830;
+            --navy:        #141E2F;
+            --navy-mid:    #1E2F48;
+            --cream:       #FDFAF4;
+            --cream-dark:  #F5EFE0;
+            --ink:         #2C2C2C;
         }
 
-        /* Enforce Bulletproof Fullscreen Aspect Ratio for Chrome/Safari */
-        html, body {
-            margin: 0;
-            padding: 0;
+        /* ─── VIEWPORT: rock-solid across Chrome/Safari mobile ─── */
+        html {
+            margin: 0; padding: 0;
             width: 100%;
             height: 100%;
-            position: fixed; /* This prevents the mobile address bar from causing cropping/jumping */
-            top: 0;
-            left: 0;
-            overflow: hidden;
-            background-color: #1a1a1a; /* Dark background for desktop spaces */
+            /* iOS Safari needs this to exclude address bar */
+            height: -webkit-fill-available;
         }
 
         body {
+            margin: 0; padding: 0;
+            width: 100%;
+            /* Layered fallbacks: dvh > -webkit-fill-available > vh */
+            height: 100vh;
+            height: -webkit-fill-available;
+            height: 100dvh;
+            overflow: hidden;
+            background-color: #0e131f;
             font-family: 'Lato', sans-serif;
-            color: var(--color-navy);
+            color: var(--ink);
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
+        /* ─── MAIN CONTAINER ─── */
         #mobile-container {
-            width: 100%;
-            height: 100%; /* Perfectly adapts to the fixed body */
-            max-width: 480px; /* Maximum width on desktop devices to keep the card look */
             position: relative;
-            overflow: hidden;
-            background-color: var(--color-cream);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        }
-
-        /* --- PRELOADER --- */
-        #preloader {
-            position: absolute; 
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--color-navy);
-            z-index: 100;
+            max-width: 480px;
+            overflow: hidden;
+            background-color: var(--cream);
+            box-shadow: 0 0 80px rgba(0,0,0,0.9), 0 0 0 1px rgba(201,168,76,0.15);
+        }
+
+        /* Subtle paper grain overlay for the whole container */
+        #mobile-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 200;
+        }
+
+        /* ─── PRELOADER ─── */
+        #preloader {
+            position: absolute;
+            inset: 0;
+            background: var(--navy);
+            z-index: 150;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.8s ease-out, visibility 0.8s;
+            gap: 18px;
+            transition: opacity 0.9s ease-out, visibility 0.9s;
         }
-        
-        .loader-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(212, 175, 55, 0.3);
+
+        .loader-ring {
+            width: 44px; height: 44px;
             border-radius: 50%;
-            border-top-color: var(--color-gold);
-            animation: spin 1s ease-in-out infinite;
-            margin-bottom: 15px;
+            border: 1px solid rgba(201,168,76,0.2);
+            border-top-color: var(--gold);
+            animation: spin 1.1s cubic-bezier(0.6,0,0.4,1) infinite;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* --- Typography Classes --- */
-        .font-playfair { font-family: 'Playfair Display', serif; }
-        .font-cinzel { font-family: 'Cinzel', serif; }
-        .font-dancing-script { font-family: 'Dancing Script', cursive; }
-        .font-tajawal { font-family: 'Tajawal', sans-serif; }
+        /* ─── TYPOGRAPHY ─── */
+        .font-cormorant { font-family: 'Cormorant Garamond', serif; }
+        .font-cinzel     { font-family: 'Cinzel', serif; }
+        .font-dancing    { font-family: 'Dancing Script', cursive; }
+        .font-tajawal    { font-family: 'Tajawal', sans-serif; }
 
-        .text-gold { color: var(--color-gold); }
-        .bg-gold { background-color: var(--color-gold); }
-        .border-gold { border-color: var(--color-gold); }
+        .text-gold  { color: var(--gold); }
+        .bg-gold    { background-color: var(--gold); }
+        .border-gold { border-color: var(--gold); }
 
-        /* --- Page 1 (Entry) - Door Animation Styles --- */
+        /* ─── PAGE 1: DOORS ─── */
         #page1 {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 50; 
-            perspective: 1500px;
+            inset: 0;
+            z-index: 50;
+            perspective: 1600px;
             overflow: hidden;
             pointer-events: auto;
             transition: pointer-events 0s linear 1.5s;
         }
-        
-        .show-page2 #page1 {
-            pointer-events: none;
-        }
+
+        .show-page2 #page1 { pointer-events: none; }
 
         .door {
             position: absolute;
             top: 0;
-            width: 50.2%; 
+            width: 50.2%;
             height: 100%;
-            overflow: hidden; 
-            transition: transform 2.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+            overflow: hidden;
+            transition: transform 2.4s cubic-bezier(0.45, 0.0, 0.15, 1);
             transform-style: preserve-3d;
-            z-index: 10;
-            background-color: var(--color-navy);
+            background-color: var(--navy);
         }
 
+        /* The door-inner spans the full container width so bg image renders seamlessly */
         .door-inner {
             position: absolute;
             top: 0;
-            width: 200%; 
+            width: 200%;
             height: 100%;
-            background-color: var(--color-navy); 
+            /* Critical for mobile: explicit sizing + repeat prevention */
             background-image: url('https://drive.google.com/thumbnail?id=1f_g428ADuRxSe5HIzT5BPZUZHpEMdbeX&sz=w1920');
-            background-size: cover; 
-            background-position: center; 
+            background-color: var(--navy);
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
             pointer-events: none;
+            /* GPU-accelerate for smooth animation */
+            will-change: transform;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
 
-        .door-left { left: 0; transform-origin: left center; }
-        .door-left .door-inner { left: 0; }
+        .door-left  { left: 0;  transform-origin: left center; }
         .door-right { right: 0; transform-origin: right center; }
+
+        /* Left door: inner div starts at left edge → shows left half of image */
+        .door-left  .door-inner { left: 0; }
+        /* Right door: inner div pulled left → shows right half of image */
         .door-right .door-inner { left: -100%; }
 
+        /* Atmospheric overlay on each door */
         .door::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.2); 
-            z-index: 2; 
+            background: linear-gradient(
+                to bottom,
+                rgba(14,19,31,0.45) 0%,
+                rgba(14,19,31,0.15) 40%,
+                rgba(14,19,31,0.15) 60%,
+                rgba(14,19,31,0.55) 100%
+            );
+            z-index: 2;
         }
 
-        .show-page2 .door-left { transform: rotateY(-110deg); }
-        .show-page2 .door-right { transform: rotateY(110deg); }
+        /* Golden seam between the two closed doors */
+        .door-left::before {
+            content: '';
+            position: absolute;
+            right: 0; top: 0;
+            width: 1px; height: 100%;
+            background: linear-gradient(to bottom,
+                transparent 0%,
+                var(--gold) 20%,
+                var(--gold-light) 50%,
+                var(--gold) 80%,
+                transparent 100%
+            );
+            z-index: 5;
+            opacity: 0.8;
+        }
 
+        .show-page2 .door-left  { transform: rotateY(-115deg); }
+        .show-page2 .door-right { transform: rotateY(115deg); }
+
+        /* ─── DOOR OVERLAY (centre logo + button) ─── */
         #invitation-overlay {
-            transition: opacity 1s ease 0.2s;
+            position: absolute;
+            left: 50%; top: 62%;
+            transform: translate(-50%, -50%);
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0 24px;
+            transition: opacity 0.9s ease 0.1s;
             opacity: 1;
         }
+
         .show-page2 #invitation-overlay {
             opacity: 0;
             pointer-events: none;
         }
 
-        /* --- Page 2 (Details) --- */
+        /* Subtle label above the names on page1 */
+        .overlay-label {
+            font-family: 'Cinzel', serif;
+            font-size: 9px;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: rgba(201,168,76,0.85);
+            margin-bottom: 10px;
+        }
+
+        .overlay-names {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 0.08em;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+
+        .overlay-date {
+            font-family: 'Cinzel', serif;
+            font-size: 10px;
+            letter-spacing: 0.3em;
+            color: rgba(226,201,126,0.8);
+            margin-bottom: 28px;
+        }
+
+        /* ─── PARTICLES ─── */
+        #particles-canvas {
+            position: absolute;
+            inset: 0;
+            z-index: 60;
+            pointer-events: none;
+        }
+        .show-page2 #particles-canvas { opacity: 0; transition: opacity 0.8s; }
+
+        /* ─── CUSTOM BUTTON ─── */
+        .btn-royal {
+            font-family: 'Cinzel', serif;
+            font-size: 10px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            background: rgba(20, 30, 47, 0.55);
+            border: 1px solid rgba(201,168,76,0.6);
+            padding: 11px 34px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .btn-royal::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, transparent 30%, rgba(201,168,76,0.35) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.55s ease;
+        }
+        .btn-royal:hover::after { transform: translateX(100%); }
+        .btn-royal:hover {
+            color: #fff;
+            border-color: rgba(226,201,126,0.9);
+            box-shadow: 0 0 28px rgba(201,168,76,0.35), inset 0 0 20px rgba(201,168,76,0.08);
+        }
+
+        /* ─── PAGE 2 ─── */
         #page2 {
             position: absolute;
             inset: 0;
-            z-index: 20; 
-            background: radial-gradient(circle at 50% 50%, #FDFBF7 0%, #f4f1ea 100%);
+            z-index: 20;
+            background: var(--cream);
             overflow-y: auto;
             overflow-x: hidden;
-            scroll-smooth: true;
-            visibility: hidden; 
+            visibility: hidden;
             opacity: 0;
             transition: opacity 1s ease-in;
+            /* Smooth momentum scrolling on iOS */
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
         }
-        
-        .show-page2 #page2 {
-            visibility: visible;
-            opacity: 1;
-        }
+        .show-page2 #page2 { visibility: visible; opacity: 1; }
 
-        /* Scrollbar styling for page2 inside container */
-        #page2::-webkit-scrollbar { width: 6px; }
-        #page2::-webkit-scrollbar-track { background: #FDFBF7; }
-        #page2::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 4px; }
-
-        /* --- Scroll Reveal Animations --- */
-        .reveal-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .reveal-on-scroll.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .stagger-1 { transition-delay: 100ms; }
-        .stagger-2 { transition-delay: 200ms; }
-
-        /* --- Floating Particles Canvas --- */
-        #particles-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 60; 
+        /* Gentle parchment gradient for page2 */
+        #page2::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201,168,76,0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 40% at 50% 110%, rgba(201,168,76,0.05) 0%, transparent 70%);
             pointer-events: none;
+            z-index: 0;
         }
-        .show-page2 #particles-canvas { opacity: 0; transition: opacity 1s; }
 
-        /* --- Custom Button --- */
-        .btn-royal {
-            background: linear-gradient(135deg, #1B263B 0%, #304a6e 100%);
-            color: #D4AF37;
-            border: 1px solid #D4AF37;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 50; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        #page2::-webkit-scrollbar { width: 4px; }
+        #page2::-webkit-scrollbar-track { background: transparent; }
+        #page2::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; opacity: 0.5; }
+
+        /* ─── SCROLL REVEAL ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.85s ease-out, transform 0.85s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        .btn-royal::before {
+        .reveal.visible { opacity: 1; transform: none; }
+        .delay-1 { transition-delay: 100ms; }
+        .delay-2 { transition-delay: 200ms; }
+        .delay-3 { transition-delay: 320ms; }
+
+        /* ─── ORNAMENTAL DIVIDER ─── */
+        .ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 0 auto;
+        }
+        .ornament::before, .ornament::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            max-width: 80px;
+        }
+        .ornament-symbol {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 11px;
+            letter-spacing: 0.2em;
+        }
+
+        /* ─── COUNTDOWN BOXES ─── */
+        .countdown-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 58px;
+            height: 64px;
+            position: relative;
+            background: #fff;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.07), 0 0 0 1px rgba(201,168,76,0.2);
+        }
+        .countdown-box::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
-            transition: left 0.6s ease;
-            z-index: -1;
+            top: 0; left: 0;
+            width: 100%; height: 2px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
         }
-        .btn-royal:hover::before { left: 100%; }
-        .btn-royal:hover {
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
-            transform: translateY(-3px) scale(1.05);
-            color: white;
-            border-color: white;
+        .countdown-val {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--navy);
+            line-height: 1;
+        }
+        .countdown-lbl {
+            font-family: 'Cinzel', serif;
+            font-size: 7.5px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #a0927b;
+            margin-top: 4px;
         }
 
-        /* --- Gallery --- */
+        /* ─── GALLERY ─── */
         .gallery-item {
             overflow: hidden;
-            border-radius: 4px;
             position: relative;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            z-index: 10;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.12);
         }
         .gallery-item img {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             object-fit: cover;
-            transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-        .gallery-item:hover img { transform: scale(1.15); }
-
-        /* Pulse for countdown */
-        @keyframes pulse-soft {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(0.95); opacity: 0.9; }
-        }
-        .animate-pulse-soft { animation: pulse-soft 2s infinite ease-in-out; }
-        
-        .eternel-copyright {
-            font-family: 'Cinzel', serif;
-            letter-spacing: 2px;
-            font-size: 9px;
-            margin-top: 15px;
+            transition: transform 1.3s cubic-bezier(0.2, 0.8, 0.2, 1);
             display: block;
-            color: #D4AF37;
-            opacity: 0.8;
+        }
+        .gallery-item:hover img { transform: scale(1.08); }
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            box-shadow: inset 0 0 0 1px rgba(201,168,76,0.3);
+            pointer-events: none;
+        }
+
+        /* ─── INFO CARD ─── */
+        .info-card {
+            background: #fff;
+            border-top: 2px solid var(--gold);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.07);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+        }
+
+        /* ─── RSVP SECTION ─── */
+        #rsvp-section {
+            background: var(--navy);
+            position: relative;
+            overflow: hidden;
+        }
+        #rsvp-section::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 200px; height: 200px;
+            border-radius: 50%;
+            border: 1px solid rgba(201,168,76,0.08);
+        }
+        #rsvp-section::after {
+            content: '';
+            position: absolute;
+            bottom: -40px; left: -40px;
+            width: 140px; height: 140px;
+            border-radius: 50%;
+            border: 1px solid rgba(201,168,76,0.06);
+        }
+
+        /* ─── FORM ELEMENTS ─── */
+        .rsvp-input {
+            width: 100%;
+            background: rgba(255,255,255,0.04);
+            border: none;
+            border-bottom: 1px solid rgba(201,168,76,0.25);
+            color: #e8dfc8;
+            padding: 10px 0;
+            font-size: 13px;
+            font-family: 'Lato', sans-serif;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .rsvp-input:focus { border-bottom-color: var(--gold-light); }
+        .rsvp-input::placeholder { color: rgba(200,190,170,0.4); }
+
+        .rsvp-radio { display: none; }
+        .rsvp-radio-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 8px 10px;
+            border: 1px solid rgba(201,168,76,0.15);
+            font-family: 'Cinzel', serif;
+            font-size: 9.5px;
+            letter-spacing: 0.15em;
+            color: rgba(200,190,170,0.6);
+            transition: all 0.25s;
+        }
+        .rsvp-radio:checked + .rsvp-radio-label {
+            border-color: var(--gold);
+            color: var(--gold-light);
+            background: rgba(201,168,76,0.07);
+        }
+        .rsvp-radio-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            border: 1px solid currentColor;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .rsvp-radio:checked + .rsvp-radio-label .rsvp-radio-dot::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            border-radius: 50%;
+            background: var(--gold);
+        }
+
+        /* ─── SUBMIT BUTTON ─── */
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-dark) 100%);
+            background-size: 200% 100%;
+            background-position: 100% 0;
+            color: var(--navy);
+            font-family: 'Cinzel', serif;
+            font-size: 10px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            padding: 13px;
+            border: none;
+            cursor: pointer;
+            transition: background-position 0.5s ease, box-shadow 0.3s, transform 0.15s;
+        }
+        .btn-submit:hover {
+            background-position: 0% 0;
+            box-shadow: 0 4px 20px rgba(201,168,76,0.4);
+        }
+        .btn-submit:active { transform: scale(0.98); }
+
+        /* ─── ACTION BUTTONS ─── */
+        .action-btn {
+            font-family: 'Cinzel', serif;
+            font-size: 9px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            padding: 9px 0;
+            text-align: center;
+            transition: all 0.25s;
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            text-align: center;
+            padding-bottom: 36px;
+        }
+
+        /* ─── LANG / AUDIO CONTROLS ─── */
+        .control-pill {
+            background: rgba(14,19,31,0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(201,168,76,0.35);
+            color: var(--gold-light);
+            font-family: 'Cinzel', serif;
+            font-size: 9.5px;
+            letter-spacing: 0.18em;
+            padding: 5px 14px;
+            transition: all 0.25s;
+            cursor: pointer;
+        }
+        .control-pill:hover {
+            background: rgba(201,168,76,0.2);
+            border-color: var(--gold-light);
+            color: #fff;
+        }
+
+        .control-circle {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: rgba(14,19,31,0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(201,168,76,0.35);
+            color: var(--gold-light);
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.25s;
+            cursor: pointer;
+        }
+        .control-circle:hover {
+            background: rgba(201,168,76,0.2);
+            color: #fff;
+        }
+
+        /* ─── BACK BUTTON ─── */
+        #back-btn {
+            font-family: 'Cinzel', serif;
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: var(--navy);
+            border: 1px solid rgba(20,30,47,0.12);
+            padding: 7px 14px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            transition: all 0.25s;
+        }
+        #back-btn:hover {
+            background: var(--navy);
+            color: #fff;
+            border-color: var(--navy);
+        }
+
+        /* ─── SOFT PULSE ANIMATION ─── */
+        @keyframes soft-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.65; }
+        }
+
+        /* RTL support */
+        [dir="rtl"] .ornament::before { background: linear-gradient(to left, transparent, var(--gold), transparent); }
+        [dir="rtl"] .ornament::after  { background: linear-gradient(to right, transparent, var(--gold), transparent); }
+
+        /* ─── ANIMATING COPYRIGHT CREDIT ─── */
+        .eternel {
+            font-family: 'Cinzel', serif;
+            font-size: 8.5px;
+            letter-spacing: 0.28em;
+            color: rgba(201,168,76,0.55);
+            display: block;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
 <div id="mobile-container">
+
+    <!-- ══════════════════════════════════════════
+         PRELOADER
+    ═══════════════════════════════════════════ -->
     <div id="preloader">
-        <!-- Increased width from w-24 (96px) to w-96 (384px) to make it 4X bigger -->
-        <img src="logo.png" alt="Logo" class="w-96 max-w-[80vw] mb-6 animate-pulse object-contain" loading="eager" onerror="this.style.display='none'">
-        <div class="loader-spinner"></div>
-        <div class="font-cinzel text-gold text-xs tracking-widest uppercase" data-lang-key="loading">Loading Invitation...</div>
+        <img src="logo.png" alt="Logo"
+             class="w-64 max-w-[72vw] mb-2 object-contain"
+             loading="eager"
+             onerror="this.style.display='none'">
+        <div class="loader-ring"></div>
+        <p class="font-cinzel text-[9px] tracking-[0.3em] uppercase text-gold/70 mt-2" data-lang-key="loading">
+            Loading Invitation…
+        </p>
     </div>
 
+
+    <!-- ══════════════════════════════════════════
+         PAGE 1: DOORS
+    ═══════════════════════════════════════════ -->
     <div id="page1">
+
+        <!-- Left door -->
         <div class="door door-left">
             <div class="door-inner"></div>
         </div>
+
+        <!-- Right door -->
         <div class="door door-right">
             <div class="door-inner"></div>
         </div>
-        
+
+        <!-- Floating gold particles -->
         <canvas id="particles-canvas"></canvas>
 
-        <div class="absolute top-6 right-6 z-50 flex items-center gap-3">
-            <button id="lang-toggle-btn" class="bg-[#1B263B]/80 backdrop-blur border border-gold/50 text-gold text-xs font-cinzel tracking-widest py-1 px-3 rounded hover:bg-gold hover:text-[#1B263B] transition-colors duration-300">
-                العربية
-            </button>
-            <button id="audio-control" class="bg-[#1B263B]/80 backdrop-blur border border-gold/50 text-gold p-2 rounded-full hover:bg-gold hover:text-[#1B263B] transition-colors duration-300 group">
-                <svg id="speaker-icon" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+        <!-- Top-right controls -->
+        <div class="absolute top-5 right-5 z-50 flex items-center gap-2.5">
+            <button id="lang-toggle-btn" class="control-pill">العربية</button>
+            <button id="audio-control" class="control-circle">
+                <svg id="speaker-icon" xmlns="http://www.w3.org/2000/svg"
+                     class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
                 </svg>
             </button>
         </div>
 
-        <div id="invitation-overlay" class="absolute left-1/2 top-2/3 -translate-x-1/2 z-50 flex flex-col items-center text-center p-6">
-            <button id="join-us-btn" class="btn-royal font-cinzel font-bold py-2.5 px-8 text-xs tracking-[0.2em] uppercase rounded-sm cursor-pointer transform hover:scale-105 transition-transform duration-300">
+        <!-- Centre overlay -->
+        <div id="invitation-overlay">
+            <p class="overlay-label" data-lang-key=""></p>
+            <h1 class="overlay-names" data-lang-key=""></h1>
+            <p class="overlay-date" data-lang-key=""></br></br></br></br></br></br></br></br></br></p>
+
+            <button id="join-us-btn" class="btn-royal">
                 <span data-lang-key="enterButton">Enter</span>
             </button>
         </div>
-    </div>
 
+    </div><!-- /page1 -->
+
+
+    <!-- ══════════════════════════════════════════
+         PAGE 2: DETAILS
+    ═══════════════════════════════════════════ -->
     <div id="page2">
-        <button id="back-btn" class="fixed top-4 left-4 z-50 bg-white/90 backdrop-blur text-[#1B263B] py-1.5 px-3 rounded-sm shadow-md font-cinzel text-[10px] tracking-wider border border-[#1B263B]/10 hover:bg-[#1B263B] hover:text-white transition-all duration-300 hover:shadow-lg transform hover:-translate-x-1">
+
+        <!-- Back button -->
+        <button id="back-btn" class="fixed top-4 left-4 z-50 cursor-pointer">
             <span data-lang-key="backButton">← Back</span>
         </button>
 
-        <div class="max-w-md mx-auto text-center px-6 py-16 relative z-10">
+        <div class="relative z-10 max-w-md mx-auto text-center px-6 pt-20 pb-10">
 
-            <div class="reveal-on-scroll mt-6">
-                <p class="font-cinzel text-gold text-xs tracking-[0.2em] uppercase mb-4" data-lang-key="togetherFamilies">Together with their families</p>
-                <h2 class="font-playfair text-4xl text-[#1B263B] mb-2" data-lang-key="coupleNames">Marwan & Hajar</h2>
-                <div class="text-gold text-2xl mb-2">✦</div>
-                <p class="font-playfair text-sm text-gray-600 max-w-2xl mx-auto leading-relaxed mb-6" data-lang-key="inviteText">invite you to celebrate their wedding</p>
-                <h3 class="font-cinzel text-xl text-[#1B263B] mb-6 tracking-widest font-bold" data-lang-key="weddingDate">July 3rd 2026</h3>
-                <div class="w-12 h-1 bg-gold mx-auto mb-10 rounded-full"></div>
+            <!-- ─── HEADER ─── -->
+            <div class="reveal mb-2">
+                <p class="font-cinzel text-[9px] tracking-[0.35em] uppercase text-gold/80 mb-5"
+                   data-lang-key="togetherFamilies">Together with their families</p>
+                <h2 class="font-cormorant text-[42px] font-light tracking-[0.06em] text-navy leading-none mb-1"
+                    data-lang-key="coupleNames">Marwan &amp; Hajar</h2>
+                <p class="font-dancing text-[18px] text-gold/60 mb-5"
+                   data-lang-key="inviteText">invite you to celebrate their wedding</p>
             </div>
 
-            <div id="countdown" class="flex flex-wrap justify-center gap-3 mb-16 reveal-on-scroll stagger-1">
+            <!-- ornament -->
+            <div class="ornament mb-5 reveal delay-1">
+                <span class="ornament-symbol">✦ ✦ ✦</span>
             </div>
 
+            <div class="reveal delay-2 mb-12">
+                <h3 class="font-cinzel text-[17px] tracking-[0.22em] text-navy font-medium"
+                    data-lang-key="weddingDate">July 3rd 2026</h3>
+            </div>
+
+            <!-- ─── COUNTDOWN ─── -->
+            <div id="countdown" class="flex justify-center gap-3 mb-16 reveal delay-2"></div>
+
+            <!-- ─── GALLERY ─── -->
             <div class="mb-16">
-                <h3 class="font-cinzel text-lg text-[#1B263B] mb-6 tracking-widest uppercase reveal-on-scroll" data-lang-key="galleryTitle">Our Moments</h3>
-                
-                <!-- Gallery: Two tall side-by-side images -->
+                <p class="font-cinzel text-[9px] tracking-[0.32em] uppercase text-gold/70 mb-5 reveal"
+                   data-lang-key="galleryTitle">Our Moments</p>
+
                 <div class="grid grid-cols-2 gap-3">
-                    <div class="gallery-item reveal-on-scroll aspect-[9/16] h-full w-full">
-                        <img src="https://drive.google.com/thumbnail?id=15WVIhbEazoDXkmop6e0bdmwb7Jik7iKP&sz=s800" alt="Couple" loading="lazy" class="w-full h-full object-cover">
+                    <div class="gallery-item reveal aspect-[9/16]">
+                        <img src="https://drive.google.com/thumbnail?id=15WVIhbEazoDXkmop6e0bdmwb7Jik7iKP&sz=s800"
+                             alt="Couple" loading="lazy">
                     </div>
-                    <div class="gallery-item reveal-on-scroll aspect-[9/16] h-full w-full stagger-1">
-                        <img src="https://drive.google.com/thumbnail?id=1FaqwrE2QhsA197WtluSKpGh0U9KC4Yw7&sz=s800" alt="Ring" loading="lazy" class="w-full h-full object-cover">
-                    </div>
-                </div>
-            </div>
-
-            <div class="mb-16 text-left rtl:text-right px-2">
-                <div class="bg-white p-6 shadow-xl border-t-4 border-gold reveal-on-scroll stagger-1 transform hover:-translate-y-1 hover:shadow-2xl transition-all duration-500 rounded-sm">
-                    <div class="flex items-center gap-3 mb-5">
-                        <div class="text-2xl text-gold animate-bounce" style="animation-duration: 3s;">🥂</div>
-                        <h3 class="font-playfair text-xl font-bold text-[#1B263B]" data-lang-key="celebTitle">The Wedding</h3>
-                    </div>
-                    <div class="space-y-3 text-gray-600 font-light text-sm mb-6">
-                        <p class="flex items-center gap-2"><span class="font-bold text-[#1B263B]">🕒</span> <span data-lang-key="celebTime">8:30 PM sharp (actual time)</span></p>
-                        <p class="flex items-start gap-2"><span class="font-bold text-[#1B263B]">📍</span> <span data-lang-key="celebLocation">Dusit hotel</span></p>
-                        <p class="text-xs text-gray-400 pl-6" data-lang-key="celebAddress">Dusit ballroom</p>
-                        <div class="w-full h-px bg-gray-100 my-2"></div>
-                        <p class="flex items-center gap-2 font-medium text-[#1B263B] pt-1"><span class="font-bold">👗👔</span> <span data-lang-key="dressCode">Dress Code: Formal</span></p>
-                    </div>
-                    <div class="flex gap-2">
-                        <a href="https://maps.app.goo.gl/xuNfErX5iLXQ2mEW8" target="_blank" class="flex-1 text-center bg-[#1B263B] text-white py-2 rounded-sm text-[10px] uppercase tracking-wide hover:bg-gold transition-colors duration-300 shadow-md" data-lang-key="mapButton">Map</a>
-                        <a id="cal-celeb" href="#" target="_blank" class="flex-1 text-center border border-[#1B263B] text-[#1B263B] py-2 rounded-sm text-[10px] uppercase tracking-wide hover:bg-[#1B263B] hover:text-white transition-colors duration-300" data-lang-key="calendarButton">Calendar</a>
+                    <div class="gallery-item reveal delay-1 aspect-[9/16]">
+                        <img src="https://drive.google.com/thumbnail?id=1FaqwrE2QhsA197WtluSKpGh0U9KC4Yw7&sz=s800"
+                             alt="Ring" loading="lazy">
                     </div>
                 </div>
             </div>
 
-            <div class="bg-[#1B263B] text-white p-6 shadow-2xl reveal-on-scroll relative overflow-hidden rounded-sm group mb-20">
-                <div class="absolute -top-10 -right-10 w-32 h-32 border border-white/5 rounded-full transition-transform duration-1000 group-hover:scale-150"></div>
-                
+            <!-- ─── EVENT CARD ─── -->
+            <div class="info-card rounded-sm p-6 mb-6 reveal text-left rtl:text-right">
+                <div class="flex items-center gap-3 mb-5">
+                    <span class="text-[22px]" style="animation: soft-pulse 3s infinite">🥂</span>
+                    <h3 class="font-cormorant text-[20px] font-medium text-navy"
+                        data-lang-key="celebTitle">The Wedding</h3>
+                </div>
+
+                <div class="space-y-3 text-[13px] text-gray-500 font-light mb-5 leading-relaxed">
+                    <p class="flex items-center gap-2.5">
+                        <span class="text-navy text-base">🕒</span>
+                        <span data-lang-key="celebTime">8:30 PM sharp (actual time)</span>
+                    </p>
+                    <p class="flex items-start gap-2.5">
+                        <span class="text-navy text-base">📍</span>
+                        <span>
+                            <span data-lang-key="celebLocation" class="font-medium text-navy/80">Dusit hotel</span><br>
+                            <span class="text-xs text-gray-400" data-lang-key="celebAddress">Dusit ballroom</span>
+                        </span>
+                    </p>
+                    <div class="h-px bg-gray-100 my-1"></div>
+                    <p class="flex items-center gap-2.5">
+                        <span class="text-base">👗</span>
+                        <span class="font-medium text-navy/70 text-xs font-cinzel tracking-wide"
+                              data-lang-key="dressCode">Dress Code: Formal</span>
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://maps.app.goo.gl/xuNfErX5iLXQ2mEW8" target="_blank"
+                       class="action-btn bg-navy text-white hover:bg-gold/90 hover:text-navy"
+                       data-lang-key="mapButton">Map</a>
+                    <a id="cal-celeb" href="#" target="_blank"
+                       class="action-btn border border-navy text-navy hover:bg-navy hover:text-white"
+                       data-lang-key="calendarButton">Calendar</a>
+                </div>
+            </div>
+
+            <!-- ornament between cards -->
+            <div class="ornament my-8 reveal">
+                <span class="ornament-symbol">✦</span>
+            </div>
+
+            <!-- ─── RSVP ─── -->
+            <div id="rsvp-section" class="rounded-sm p-6 mb-16 reveal">
                 <div class="relative z-10">
-                    <h3 class="font-cinzel text-xl mb-1 text-gold" data-lang-key="rsvpTitle">RSVP</h3>
-                    <p class="font-playfair italic text-gray-400 text-xs mb-6" data-lang-key="rsvpSubtitle">Kindly respond by June 15th</p>
+                    <h3 class="font-cinzel text-[18px] text-gold mb-1 tracking-widest"
+                        data-lang-key="rsvpTitle">RSVP</h3>
+                    <p class="font-cormorant italic text-gray-400 text-[13px] mb-7"
+                       data-lang-key="rsvpSubtitle">Kindly respond by June 15th</p>
 
-                    <form id="rsvp-form" class="text-left rtl:text-right space-y-4">
-                        <div class="group/input">
-                            <label for="name" class="block text-gold text-[10px] tracking-widest uppercase mb-1 group-focus-within/input:text-white transition-colors" data-lang-key="rsvpName">Full Name</label>
-                            <input type="text" id="name" name="name" class="w-full bg-white/5 border border-white/20 text-white px-3 py-2 text-sm focus:outline-none focus:border-gold focus:bg-white/10 transition-all duration-300" required>
+                    <form id="rsvp-form" class="text-left rtl:text-right space-y-5">
+
+                        <div>
+                            <label for="name" class="block font-cinzel text-[9px] tracking-[0.28em] uppercase text-gold/70 mb-2"
+                                   data-lang-key="rsvpName">Full Name</label>
+                            <input type="text" id="name" name="name"
+                                   class="rsvp-input" required
+                                   placeholder="Your name">
                         </div>
 
                         <div>
-                            <span class="block text-gold text-[10px] tracking-widest uppercase mb-2" data-lang-key="rsvpAttend">Attendance</span>
-                            <div class="space-y-2">
-                                <label class="flex items-center cursor-pointer group p-1.5 hover:bg-white/5 rounded transition-colors">
-                                    <input type="radio" name="attending" value="Yes" class="h-3 w-3 text-gold border-white/20 focus:ring-gold bg-transparent" required>
-                                    <span class="ml-2 text-gray-300 group-hover:text-white transition-colors text-xs" data-lang-key="rsvpYes">Joyfully Accept</span>
-                                </label>
-                                <label class="flex items-center cursor-pointer group p-1.5 hover:bg-white/5 rounded transition-colors">
-                                    <input type="radio" name="attending" value="No" class="h-3 w-3 text-gold border-white/20 focus:ring-gold bg-transparent">
-                                    <span class="ml-2 text-gray-300 group-hover:text-white transition-colors text-xs" data-lang-key="rsvpNo">Regretfully Decline</span>
-                                </label>
+                            <span class="block font-cinzel text-[9px] tracking-[0.28em] uppercase text-gold/70 mb-3"
+                                  data-lang-key="rsvpAttend">Attendance</span>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <input type="radio" id="rsvp-yes" name="attending"
+                                           value="Yes" class="rsvp-radio" required>
+                                    <label for="rsvp-yes" class="rsvp-radio-label">
+                                        <span class="rsvp-radio-dot"></span>
+                                        <span data-lang-key="rsvpYes">Joyfully Accept</span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="rsvp-no" name="attending"
+                                           value="No" class="rsvp-radio">
+                                    <label for="rsvp-no" class="rsvp-radio-label">
+                                        <span class="rsvp-radio-dot"></span>
+                                        <span data-lang-key="rsvpNo">Regretfully Decline</span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Number input for additional guests, validation logic added in JS -->
-                        <div id="guests-section" class="hidden transition-all duration-500 ease-in-out opacity-0 transform -translate-y-2 group/input">
-                            <label for="guests" class="block text-gold text-[10px] tracking-widest uppercase mb-1" data-lang-key="rsvpGuestsCount">Number of additional guests</label>
-                            <input type="number" id="guests" name="guests" class="w-full bg-white/5 border border-white/20 text-white px-3 py-2 text-sm focus:outline-none focus:border-gold focus:bg-white/10 transition-all duration-300" min="0">
+                        <div id="guests-section" class="hidden opacity-0 -translate-y-2 transition-all duration-500">
+                            <label for="guests" class="block font-cinzel text-[9px] tracking-[0.28em] uppercase text-gold/70 mb-2"
+                                   data-lang-key="rsvpGuestsCount">Number of additional guests</label>
+                            <input type="number" id="guests" name="guests" min="0"
+                                   class="rsvp-input">
                         </div>
 
-                        <!-- Text area for message to the couple -->
-                        <div class="group/input">
-                            <label for="message" class="block text-gold text-[10px] tracking-widest uppercase mb-1" data-lang-key="rsvpMessage">Leave a message for the couple</label>
-                            <textarea id="message" name="message" rows="3" class="w-full bg-white/5 border border-white/20 text-white px-3 py-2 text-sm focus:outline-none focus:border-gold focus:bg-white/10 transition-all duration-300"></textarea>
+                        <div>
+                            <label for="message" class="block font-cinzel text-[9px] tracking-[0.28em] uppercase text-gold/70 mb-2"
+                                   data-lang-key="rsvpMessage">Leave a message for the couple</label>
+                            <textarea id="message" name="message" rows="3"
+                                      class="rsvp-input resize-none"
+                                      placeholder="Your message…"></textarea>
                         </div>
 
-                        <button type="submit" id="rsvp-submit-btn" class="w-full bg-gold text-[#1B263B] font-bold py-2.5 px-4 uppercase tracking-widest hover:bg-white transition-all duration-300 shadow-lg disabled:bg-gray-500 disabled:cursor-not-allowed text-xs transform active:scale-95 mt-4">
+                        <button type="submit" id="rsvp-submit-btn" class="btn-submit mt-2 disabled:opacity-40 disabled:cursor-not-allowed">
                             <span data-lang-key="rsvpSubmit">Confirm</span>
                         </button>
                     </form>
-                    <div id="rsvp-message" class="mt-4 text-center font-playfair italic text-xs min-h-[16px]"></div>
+
+                    <p id="rsvp-message" class="mt-5 text-center font-cormorant italic text-[13px] min-h-[18px]"></p>
                 </div>
             </div>
 
-            <footer class="pb-6 text-[#1B263B]/50 font-cinzel text-[10px] tracking-widest reveal-on-scroll mt-20">
-                <p data-lang-key="footer">Marwan & Hajar ✦ 2026</p>
-                <span class="eternel-copyright">E T E R N E L . E G © 2026. All Rights Reserved.</span>
+            <!-- ─── FOOTER ─── -->
+            <footer class="reveal pb-4">
+                <div class="ornament mb-6">
+                    <span class="ornament-symbol">✦</span>
+                </div>
+                <p class="font-cinzel text-[9px] tracking-[0.3em] uppercase text-navy/40"
+                   data-lang-key="footer">Marwan &amp; Hajar ✦ 2026</p>
+                <span class="eternel">E T E R N E L · E G &nbsp;©&nbsp; 2026</span>
             </footer>
+
         </div>
-    </div>
-</div> 
+    </div><!-- /page2 -->
 
-    <!-- Audio Element pointing to a local music.mp3 file -->
-    <audio id="background-music" loop>
-        <source src="music.mp3" type="audio/mpeg">
-        <!-- Fallback to original drive file just in case local file is missing -->
-        <source src="https://drive.google.com/file/d/1v4WxnmkD6wfi1D7200HmvSnXPBCzHtO0" type="audio/mpeg">
-    </audio>
+</div><!-- /mobile-container -->
 
-    <script>
-        // --- PRELOADER LOGIC ---
-        window.onload = function() {
-            const preloader = document.getElementById('preloader');
-            setTimeout(() => {
-                preloader.style.opacity = '0';
-                preloader.style.visibility = 'hidden';
-            }, 800);
-        };
+<audio id="background-music" loop preload="none">
+    <source src="music.mp3" type="audio/mpeg">
+    <source src="https://drive.google.com/file/d/1v4WxnmkD6wfi1D7200HmvSnXPBCzHtO0" type="audio/mpeg">
+</audio>
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const joinUsBtn = document.getElementById('join-us-btn');
-            const backBtn = document.getElementById('back-btn');
-            const mobileContainer = document.getElementById('mobile-container');
-            const langToggleBtn = document.getElementById('lang-toggle-btn');
-            
-            // Audio elements
-            const bgMusic = document.getElementById('background-music');
-            const audioControl = document.getElementById('audio-control');
+<script>
+// ═════════════════════════════════════════════════════════
+//  PRELOADER
+// ═════════════════════════════════════════════════════════
+window.addEventListener('load', () => {
+    const pre = document.getElementById('preloader');
+    setTimeout(() => {
+        pre.style.opacity  = '0';
+        pre.style.visibility = 'hidden';
+    }, 750);
+});
 
-            // --- Particle System ---
-            const canvas = document.getElementById('particles-canvas');
-            const ctx = canvas.getContext('2d');
-            let particlesArray;
+document.addEventListener('DOMContentLoaded', () => {
 
-            function setCanvasSize() {
-                canvas.width = mobileContainer.clientWidth;
-                canvas.height = mobileContainer.clientHeight;
+    const container      = document.getElementById('mobile-container');
+    const joinBtn        = document.getElementById('join-us-btn');
+    const backBtn        = document.getElementById('back-btn');
+    const langBtn        = document.getElementById('lang-toggle-btn');
+    const audioBtn       = document.getElementById('audio-control');
+    const bgMusic        = document.getElementById('background-music');
+    const page2          = document.getElementById('page2');
+
+    // ─── PARTICLES ───────────────────────────────────────────
+    const canvas = document.getElementById('particles-canvas');
+    const ctx    = canvas.getContext('2d');
+
+    function sizeCanvas() {
+        canvas.width  = container.clientWidth;
+        canvas.height = container.clientHeight;
+    }
+    sizeCanvas();
+
+    class Particle {
+        constructor() { this.reset(true); }
+        reset(anywhere = false) {
+            this.x  = Math.random() * canvas.width;
+            this.y  = anywhere ? Math.random() * canvas.height : canvas.height + 5;
+            this.r  = Math.random() * 1.3 + 0.3;
+            this.vx = (Math.random() - 0.5) * 0.3;
+            this.vy = -(Math.random() * 0.5 + 0.15);
+            this.a  = Math.random() * 0.55 + 0.05;
+            this.life = 1;
+        }
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            this.life -= 0.004;
+            if (this.y < -5 || this.life <= 0) this.reset();
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(201,168,76,${this.a * this.life})`;
+            ctx.fill();
+        }
+    }
+
+    const particles = Array.from({ length: 55 }, () => new Particle());
+
+    (function loop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(loop);
+    })();
+
+    window.addEventListener('resize', () => { sizeCanvas(); });
+
+    // ─── NAVIGATION ──────────────────────────────────────────
+    joinBtn.addEventListener('click', () => {
+        container.classList.add('show-page2');
+        bgMusic.play().catch(() => {});
+        // Re-enable overflow after animation completes
+        setTimeout(() => { page2.style.overflow = 'auto'; }, 1100);
+    });
+
+    backBtn.addEventListener('click', () => {
+        page2.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => container.classList.remove('show-page2'), 320);
+    });
+
+    // ─── AUDIO ───────────────────────────────────────────────
+    audioBtn.addEventListener('click', () => {
+        if (bgMusic.paused) {
+            bgMusic.play();
+            audioBtn.style.opacity = '1';
+        } else {
+            bgMusic.pause();
+            audioBtn.style.opacity = '0.45';
+        }
+    });
+
+    // ─── SCROLL REVEAL ───────────────────────────────────────
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                revealObserver.unobserve(e.target);
             }
-            setCanvasSize();
-
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 1.5;
-                    this.speedX = (Math.random() * 0.4) - 0.2;
-                    this.speedY = (Math.random() * 0.4) - 0.2;
-                    this.opacity = Math.random() * 0.5 + 0.1;
-                }
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                    if (this.opacity > 0.01) this.opacity -= 0.002;
-                    else this.opacity = Math.random() * 0.5 + 0.1;
-                    
-                    if (this.x > canvas.width) this.x = 0;
-                    if (this.x < 0) this.x = canvas.width;
-                    if (this.y > canvas.height) this.y = 0;
-                    if (this.y < 0) this.y = canvas.height;
-                }
-                draw() {
-                    ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-            }
-
-            function initParticles() {
-                particlesArray = [];
-                for (let i = 0; i < 60; i++) { // Adjusted for mobile view
-                    particlesArray.push(new Particle());
-                }
-            }
-
-            function animateParticles() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                for (let i = 0; i < particlesArray.length; i++) {
-                    particlesArray[i].update();
-                    particlesArray[i].draw();
-                }
-                requestAnimationFrame(animateParticles);
-            }
-
-            initParticles();
-            animateParticles();
-
-            window.addEventListener('resize', () => {
-                setCanvasSize();
-                initParticles();
-            });
-
-            // --- Scroll Reveal Observer ---
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: "0px 0px -20px 0px"
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target); 
-                    }
-                });
-            }, observerOptions);
-
-            const revealElements = document.querySelectorAll('.reveal-on-scroll');
-            revealElements.forEach(el => observer.observe(el));
-
-            // --- Navigation Animations ---
-            joinUsBtn.addEventListener('click', () => {
-                mobileContainer.classList.add('show-page2');
-                if (bgMusic.paused) {
-                    bgMusic.play().catch(e => console.log("Auto-play prevented"));
-                }
-                setTimeout(() => {
-                    document.getElementById('page2').style.overflow = 'auto';
-                }, 1000);
-            });
-
-            backBtn.addEventListener('click', () => {
-                document.getElementById('page2').scrollTo({top: 0, behavior: 'smooth'});
-                setTimeout(() => {
-                    mobileContainer.classList.remove('show-page2');
-                }, 300);
-            });
-
-            audioControl.addEventListener('click', () => {
-                if (bgMusic.paused) {
-                    bgMusic.play();
-                    audioControl.classList.remove('opacity-50');
-                } else {
-                    bgMusic.pause();
-                    audioControl.classList.add('opacity-50');
-                }
-            });
-
-            // --- Translations ---
-            let currentLang = 'en';
-            const translations = {
-                en: {
-                    loading: "Loading Invitation...",
-                    togetherFamilies: "Together with their families",
-                    coupleNames: "Marwan & Hajar",
-                    inviteText: "invite you to celebrate their wedding",
-                    weddingDate: "July 3rd 2026",
-                    enterButton: "Enter",
-                    backButton: "← Back",
-                    galleryTitle: "Our Moments",
-                    days: "Days", hours: "Hours", minutes: "Mins", seconds: "Secs",
-                    countdownOver: "Today is the day!",
-                    celebTitle: "The Wedding",
-                    celebTime: "8:30 PM sharp (actual time)",
-                    celebLocation: "Dusit hotel",
-                    celebAddress: "Dusit ballroom",
-                    dressCode: "Dress Code: Formal",
-                    mapButton: "Map", calendarButton: "Calendar",
-                    rsvpTitle: "RSVP",
-                    rsvpSubtitle: "Kindly respond by June 15th",
-                    rsvpName: "Full Name",
-                    rsvpAttend: "Attendance",
-                    rsvpYes: "Joyfully Accept",
-                    rsvpNo: "Regretfully Decline",
-                    rsvpGuestsCount: "Number of additional guests",
-                    rsvpMessage: "Leave a message for the couple",
-                    rsvpSubmit: "Confirm",
-                    rsvpSuccess: "Thank you. We look forward to seeing you.",
-                    rsvpError: "An error occurred. Please try again.",
-                    rsvpLoading: "Sending...",
-                    coupleError: "Only couples allowed (Max 2 people).",
-                    footer: "Marwan & Hajar ✦ 2026"
-                },
-                ar: {
-                    loading: "جاري التحميل...",
-                    togetherFamilies: "بالتشارك مع عائلاتنا",
-                    coupleNames: "مروان و هاجر",
-                    inviteText: "ندعوكم للاحتفال بزفافنا",
-                    weddingDate: "٣ يوليو ٢٠٢٦",
-                    enterButton: "دخول",
-                    backButton: "عودة →",
-                    galleryTitle: "لحظاتنا",
-                    days: "يوم", hours: "ساعة", minutes: "دقيقة", seconds: "ثانية",
-                    countdownOver: "إنه اليوم المنتظر!",
-                    celebTitle: "حفل الزفاف",
-                    celebTime: "٨:٣٠ مساءً بالضبط",
-                    celebLocation: "فندق دوسيت",
-                    celebAddress: "قاعة دوسيت",
-                    dressCode: "قواعد اللباس: رسمي",
-                    mapButton: "الخريطة", calendarButton: "التقويم",
-                    rsvpTitle: "تأكيد الحضور",
-                    rsvpSubtitle: "يرجى الرد قبل ١٥ يونيو",
-                    rsvpName: "الاسم الكامل",
-                    rsvpAttend: "الحضور",
-                    rsvpYes: "تأكيد الحضور",
-                    rsvpNo: "أعتذر عن الحضور",
-                    rsvpGuestsCount: "عدد الأفراد الإضافيين",
-                    rsvpMessage: "أرسل رسالة للعروسين",
-                    rsvpSubmit: "تأكيد",
-                    rsvpSuccess: "شكراً لك. بانتظار تشريفكم.",
-                    rsvpError: "حدث خطأ. يرجى المحاولة مرة أخرى.",
-                    rsvpLoading: "جار الإرسال...",
-                    coupleError: "يسمح فقط بحضور شخصين (كوبل كحد أقصى).",
-                    footer: "مروان و هاجر ✦ ٢٠٢٦"
-                }
-            };
-
-            function setLanguage(lang) {
-                currentLang = lang;
-                const elements = document.querySelectorAll('[data-lang-key]');
-                elements.forEach(el => {
-                    const key = el.dataset.langKey;
-                    if (translations[lang][key]) {
-                        el.style.opacity = '0';
-                        setTimeout(() => {
-                            el.innerHTML = translations[lang][key];
-                            el.style.opacity = '1';
-                        }, 200);
-                    }
-                });
-
-                if (lang === 'ar') {
-                    document.documentElement.setAttribute('dir', 'rtl');
-                    document.documentElement.setAttribute('lang', 'ar');
-                    langToggleBtn.textContent = 'English';
-                    document.body.classList.add('font-tajawal');
-                } else {
-                    document.documentElement.setAttribute('dir', 'ltr');
-                    document.documentElement.setAttribute('lang', 'en');
-                    langToggleBtn.textContent = 'العربية';
-                    document.body.classList.remove('font-tajawal');
-                }
-                updateCountdown(); 
-            }
-
-            langToggleBtn.addEventListener('click', () => {
-                setLanguage(currentLang === 'en' ? 'ar' : 'en');
-            });
-
-            // --- Countdown ---
-            const countdownEl = document.getElementById('countdown');
-            const weddingDate = new Date('2026-07-03T20:30:00+03:00').getTime();
-
-            function updateCountdown() {
-                const now = new Date().getTime();
-                const distance = weddingDate - now;
-
-                if (distance < 0) {
-                    countdownEl.innerHTML = `<div class="text-center w-full font-playfair text-xl text-gold animate-bounce">${translations[currentLang].countdownOver}</div>`;
-                    return;
-                }
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
-
-                const makeBox = (val, label, animate = false) => `
-                    <div class="flex flex-col items-center justify-center border border-[#1B263B]/10 bg-white w-14 h-16 rounded-sm shadow-md transition-transform hover:scale-105 ${animate ? 'animate-pulse-soft' : ''}">
-                        <span class="font-playfair font-bold text-xl text-[#1B263B]">${val}</span>
-                        <span class="font-cinzel text-[8px] uppercase tracking-wider text-gray-400 mt-1">${label}</span>
-                    </div>
-                `;
-
-                countdownEl.innerHTML = `
-                    ${makeBox(days, translations[currentLang].days)}
-                    ${makeBox(hours, translations[currentLang].hours)}
-                    ${makeBox(minutes, translations[currentLang].minutes)}
-                    ${makeBox(seconds, translations[currentLang].seconds, true)}
-                `;
-            }
-            setInterval(updateCountdown, 1000);
-            updateCountdown();
-
-            // --- RSVP Logic ---
-            const rsvpForm = document.getElementById('rsvp-form');
-            const guestsSection = document.getElementById('guests-section');
-            const rsvpMessage = document.getElementById('rsvp-message');
-            const rsvpSubmitBtn = document.getElementById('rsvp-submit-btn');
-            
-            // NOTE: Make sure to update this with your actual Google Apps Script URL if you are saving this!
-            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyGqz-MLzmVakhe7N-vs-chQOGC3OLyBb4CZxt79_MPtdqHgGI2psPQYavps0wZA9n9bw/exec'; 
-
-            const attendingOptions = ['Yes'];
-
-            rsvpForm.attending.forEach(radio => {
-                radio.addEventListener('change', (e) => {
-                    if (attendingOptions.includes(e.target.value)) {
-                        guestsSection.classList.remove('hidden');
-                        setTimeout(() => {
-                            guestsSection.classList.remove('opacity-0', '-translate-y-2');
-                        }, 10);
-                        document.getElementById('guests').required = true;
-                    } else {
-                        guestsSection.classList.add('opacity-0', '-translate-y-2');
-                        setTimeout(() => {
-                            guestsSection.classList.add('hidden');
-                        }, 300);
-                        document.getElementById('guests').required = false;
-                        document.getElementById('guests').value = '';
-                    }
-                });
-            });
-
-            rsvpForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                rsvpSubmitBtn.disabled = true;
-                rsvpSubmitBtn.querySelector('span').textContent = translations[currentLang].rsvpLoading;
-
-                const formData = new FormData(rsvpForm);
-                const attendingValue = formData.get('attending');
-                
-                // --- RSVP Couples Validation Logic ---
-                // "guests" input is the number of ADDITIONAL guests.
-                // 1 Main person + >1 additional guests = more than 2 people.
-                if (attendingValue === 'Yes' && formData.get('guests') && parseInt(formData.get('guests')) > 1) {
-                    rsvpMessage.textContent = translations[currentLang].coupleError;
-                    rsvpMessage.className = 'mt-4 text-center text-red-400 text-xs font-cinzel animate-[fadeIn_0.5s_ease]';
-                    rsvpSubmitBtn.disabled = false;
-                    rsvpSubmitBtn.querySelector('span').textContent = translations[currentLang].rsvpSubmit;
-                    return; // Prevent form submission
-                }
-
-                const data = {
-                    name: formData.get('name'),
-                    attending: attendingValue,
-                    guests: attendingOptions.includes(attendingValue) ? formData.get('guests') : 0,
-                    message: formData.get('message') // Grab the text area message
-                };
-
-                fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    cache: 'no-cache',
-                    headers: {'Content-Type': 'application/json'},
-                    redirect: 'follow',
-                    body: JSON.stringify(data)
-                })
-                .then(res => {
-                    rsvpMessage.textContent = translations[currentLang].rsvpSuccess;
-                    rsvpMessage.className = 'mt-4 text-center text-green-400 text-xs font-cinzel animate-[fadeIn_0.5s_ease]';
-                    rsvpForm.reset();
-                    guestsSection.classList.add('hidden', 'opacity-0');
-                })
-                .catch(error => {
-                    rsvpMessage.textContent = translations[currentLang].rsvpError;
-                    rsvpMessage.className = 'mt-4 text-center text-red-400 text-xs font-cinzel animate-[fadeIn_0.5s_ease]';
-                })
-                .finally(() => {
-                    rsvpSubmitBtn.disabled = false;
-                    rsvpSubmitBtn.querySelector('span').textContent = translations[currentLang].rsvpSubmit;
-                });
-            });
-
-            // Calendar & Maps logic
-            function generateGoogleCalendarLink({ title, startTime, endTime, location, details }) {
-                const toUtcString = (date) => date.toISOString().replace(/[-:.]/g, '').slice(0, 15) + 'Z';
-                const baseUrl = 'https://www.google.com/calendar/render?action=TEMPLATE';
-                const params = new URLSearchParams({
-                    text: title,
-                    dates: `${toUtcString(startTime)}/${toUtcString(endTime)}`,
-                    location: location,
-                    details: details
-                });
-                return `${baseUrl}&${params.toString()}`;
-            }
-
-            const celebEvent = {
-                title: 'Wedding: Marwan & Hajar',
-                startTime: new Date('2026-07-03T20:30:00+03:00'),
-                endTime: new Date('2026-07-04T01:00:00+03:00'),
-                location: 'Dusit Hotel, Dusit ballroom',
-                details: 'Wedding celebration.'
-            };
-
-            document.getElementById('cal-celeb').href = generateGoogleCalendarLink(celebEvent);
-
-            setLanguage('en');
         });
-    </script>
+    }, { threshold: 0.08, rootMargin: '0px 0px -16px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ─── COUNTDOWN ───────────────────────────────────────────
+    const countdownEl  = document.getElementById('countdown');
+    const weddingDate  = new Date('2026-07-03T20:30:00+03:00').getTime();
+
+    function makeBox(val, label, pulse) {
+        return `<div class="countdown-box${pulse ? ' animate-pulse' : ''}">
+            <span class="countdown-val">${val}</span>
+            <span class="countdown-lbl">${label}</span>
+        </div>`;
+    }
+
+    function updateCountdown() {
+        const dist = weddingDate - Date.now();
+        if (dist < 0) {
+            countdownEl.innerHTML = `<div class="font-cormorant text-xl text-gold w-full text-center italic">${translations[currentLang].countdownOver}</div>`;
+            return;
+        }
+        const d  = Math.floor(dist / 864e5);
+        const h  = Math.floor((dist % 864e5) / 36e5).toString().padStart(2,'0');
+        const m  = Math.floor((dist % 36e5)  / 6e4).toString().padStart(2,'0');
+        const s  = Math.floor((dist % 6e4)   / 1e3).toString().padStart(2,'0');
+        const t  = translations[currentLang];
+        countdownEl.innerHTML =
+            makeBox(d, t.days) +
+            makeBox(h, t.hours) +
+            makeBox(m, t.minutes) +
+            makeBox(s, t.seconds, true);
+    }
+    setInterval(updateCountdown, 1000);
+
+    // ─── TRANSLATIONS ─────────────────────────────────────────
+    let currentLang = 'en';
+
+    const translations = {
+        en: {
+            loading:        'Loading Invitation…',
+            togetherFamilies: 'Together with their families',
+            coupleNames:    'Marwan &amp; Hajar',
+            inviteText:     'invite you to celebrate their wedding',
+            weddingDate:    'July 3rd · 2026',
+            enterButton:    'Enter',
+            backButton:     '← Back',
+            galleryTitle:   'Our Moments',
+            days: 'Days', hours: 'Hours', minutes: 'Mins', seconds: 'Secs',
+            countdownOver:  'Today is the day!',
+            celebTitle:     'The Wedding',
+            celebTime:      '8:30 PM sharp',
+            celebLocation:  'Dusit Hotel',
+            celebAddress:   'Dusit Ballroom',
+            dressCode:      'Dress Code: Formal',
+            mapButton:      'Map',
+            calendarButton: 'Calendar',
+            rsvpTitle:      'RSVP',
+            rsvpSubtitle:   'Kindly respond by June 15th',
+            rsvpName:       'Full Name',
+            rsvpAttend:     'Attendance',
+            rsvpYes:        'Joyfully Accept',
+            rsvpNo:         'Regretfully Decline',
+            rsvpGuestsCount:'Additional guests',
+            rsvpMessage:    'Leave a message for the couple',
+            rsvpSubmit:     'Confirm',
+            rsvpSuccess:    'Thank you. We look forward to seeing you.',
+            rsvpError:      'An error occurred. Please try again.',
+            rsvpLoading:    'Sending…',
+            coupleError:    'Only couples allowed (max 2 people).',
+            footer:         'Marwan &amp; Hajar ✦ 2026'
+        },
+        ar: {
+            loading:        'جاري التحميل…',
+            togetherFamilies: 'بالتشارك مع عائلاتنا',
+            coupleNames:    'مروان و هاجر',
+            inviteText:     'ندعوكم للاحتفال بزفافنا',
+            weddingDate:    '٣ يوليو · ٢٠٢٦',
+            enterButton:    'دخول',
+            backButton:     'عودة →',
+            galleryTitle:   'لحظاتنا',
+            days: 'يوم', hours: 'ساعة', minutes: 'دقيقة', seconds: 'ثانية',
+            countdownOver:  'إنه اليوم المنتظر!',
+            celebTitle:     'حفل الزفاف',
+            celebTime:      '٨:٣٠ مساءً بالضبط',
+            celebLocation:  'فندق دوسيت',
+            celebAddress:   'قاعة دوسيت',
+            dressCode:      'قواعد اللباس: رسمي',
+            mapButton:      'الخريطة',
+            calendarButton: 'التقويم',
+            rsvpTitle:      'تأكيد الحضور',
+            rsvpSubtitle:   'يرجى الرد قبل ١٥ يونيو',
+            rsvpName:       'الاسم الكامل',
+            rsvpAttend:     'الحضور',
+            rsvpYes:        'تأكيد الحضور',
+            rsvpNo:         'أعتذر عن الحضور',
+            rsvpGuestsCount:'عدد الأفراد الإضافيين',
+            rsvpMessage:    'أرسل رسالة للعروسين',
+            rsvpSubmit:     'تأكيد',
+            rsvpSuccess:    'شكراً لك. بانتظار تشريفكم.',
+            rsvpError:      'حدث خطأ. يرجى المحاولة مرة أخرى.',
+            rsvpLoading:    'جار الإرسال…',
+            coupleError:    'يسمح فقط بحضور شخصين (كوبل كحد أقصى).',
+            footer:         'مروان و هاجر ✦ ٢٠٢٦'
+        }
+    };
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+        document.documentElement.setAttribute('lang', lang);
+        langBtn.textContent = lang === 'ar' ? 'English' : 'العربية';
+
+        if (lang === 'ar') document.body.classList.add('font-tajawal');
+        else               document.body.classList.remove('font-tajawal');
+
+        document.querySelectorAll('[data-lang-key]').forEach(el => {
+            const key = el.dataset.langKey;
+            if (translations[lang][key] !== undefined) {
+                el.style.opacity = '0';
+                setTimeout(() => {
+                    el.innerHTML = translations[lang][key];
+                    el.style.opacity = '1';
+                }, 180);
+            }
+        });
+        updateCountdown();
+    }
+
+    langBtn.addEventListener('click', () => setLanguage(currentLang === 'en' ? 'ar' : 'en'));
+
+    // ─── RSVP ────────────────────────────────────────────────
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyGqz-MLzmVakhe7N-vs-chQOGC3OLyBb4CZxt79_MPtdqHgGI2psPQYavps0wZA9n9bw/exec';
+    const rsvpForm      = document.getElementById('rsvp-form');
+    const guestsSection = document.getElementById('guests-section');
+    const rsvpMsgEl     = document.getElementById('rsvp-message');
+    const submitBtn     = document.getElementById('rsvp-submit-btn');
+
+    // Show/hide additional guests on radio change
+    rsvpForm.querySelectorAll('[name="attending"]').forEach(radio => {
+        radio.addEventListener('change', e => {
+            if (e.target.value === 'Yes') {
+                guestsSection.classList.remove('hidden');
+                setTimeout(() => guestsSection.classList.remove('opacity-0', '-translate-y-2'), 10);
+                document.getElementById('guests').required = true;
+            } else {
+                guestsSection.classList.add('opacity-0', '-translate-y-2');
+                setTimeout(() => guestsSection.classList.add('hidden'), 350);
+                document.getElementById('guests').required = false;
+                document.getElementById('guests').value = '';
+            }
+        });
+    });
+
+    rsvpForm.addEventListener('submit', e => {
+        e.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.querySelector('span').textContent = translations[currentLang].rsvpLoading;
+
+        const fd = new FormData(rsvpForm);
+        const attending = fd.get('attending');
+
+        if (attending === 'Yes' && parseInt(fd.get('guests') || 0) > 1) {
+            showRsvpMsg(translations[currentLang].coupleError, false);
+            submitBtn.disabled = false;
+            submitBtn.querySelector('span').textContent = translations[currentLang].rsvpSubmit;
+            return;
+        }
+
+        fetch(SCRIPT_URL, {
+            method: 'POST', mode: 'no-cors', cache: 'no-cache',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name: fd.get('name'),
+                attending,
+                guests: attending === 'Yes' ? fd.get('guests') : 0,
+                message: fd.get('message')
+            })
+        })
+        .then(() => {
+            showRsvpMsg(translations[currentLang].rsvpSuccess, true);
+            rsvpForm.reset();
+            guestsSection.classList.add('hidden', 'opacity-0', '-translate-y-2');
+        })
+        .catch(() => showRsvpMsg(translations[currentLang].rsvpError, false))
+        .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.querySelector('span').textContent = translations[currentLang].rsvpSubmit;
+        });
+    });
+
+    function showRsvpMsg(text, success) {
+        rsvpMsgEl.textContent = text;
+        rsvpMsgEl.style.color = success ? '#86efac' : '#fca5a5';
+    }
+
+    // ─── CALENDAR LINK ────────────────────────────────────────
+    function googleCalLink({ title, start, end, location, details }) {
+        const fmt = d => d.toISOString().replace(/[-:.]/g,'').slice(0,15)+'Z';
+        return `https://www.google.com/calendar/render?action=TEMPLATE&${
+            new URLSearchParams({ text: title, dates: `${fmt(start)}/${fmt(end)}`, location, details })
+        }`;
+    }
+    document.getElementById('cal-celeb').href = googleCalLink({
+        title: 'Wedding: Marwan & Hajar',
+        start: new Date('2026-07-03T20:30:00+03:00'),
+        end:   new Date('2026-07-04T01:00:00+03:00'),
+        location: 'Dusit Hotel, Dusit Ballroom',
+        details: 'Wedding celebration.'
+    });
+
+    // ─── INIT ─────────────────────────────────────────────────
+    setLanguage('en');
+
+}); // DOMContentLoaded
+</script>
 </body>
 </html>
