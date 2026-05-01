@@ -23,24 +23,30 @@
             --color-cream: #FDFBF7;
         }
 
-        /* Enforce Dynamic Aspect Ratio */
+        /* Enforce Bulletproof Fullscreen Aspect Ratio for Chrome/Safari */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            position: fixed; /* This prevents the mobile address bar from causing cropping/jumping */
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            background-color: #1a1a1a; /* Dark background for desktop spaces */
+        }
+
         body {
             font-family: 'Lato', sans-serif;
-            background-color: #1a1a1a; /* Dark background for desktop spaces */
             color: var(--color-navy);
-            margin: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            height: 100dvh; /* Fill full screen on mobile browsers */
-            overflow: hidden;
         }
 
         #mobile-container {
             width: 100%;
-            height: 100vh;
-            height: 100dvh; /* Adapts dynamically to device height without black bars */
+            height: 100%; /* Perfectly adapts to the fixed body */
             max-width: 480px; /* Maximum width on desktop devices to keep the card look */
             position: relative;
             overflow: hidden;
@@ -360,7 +366,7 @@
                         <p class="flex items-center gap-2 font-medium text-[#1B263B] pt-1"><span class="font-bold">👗👔</span> <span data-lang-key="dressCode">Dress Code: Formal</span></p>
                     </div>
                     <div class="flex gap-2">
-                        <a href="https://maps.app.goo.gl/DnCAyVdWcHhJSr2R8" target="_blank" class="flex-1 text-center bg-[#1B263B] text-white py-2 rounded-sm text-[10px] uppercase tracking-wide hover:bg-gold transition-colors duration-300 shadow-md" data-lang-key="mapButton">Map</a>
+                        <a href="https://maps.app.goo.gl/xuNfErX5iLXQ2mEW8" target="_blank" class="flex-1 text-center bg-[#1B263B] text-white py-2 rounded-sm text-[10px] uppercase tracking-wide hover:bg-gold transition-colors duration-300 shadow-md" data-lang-key="mapButton">Map</a>
                         <a id="cal-celeb" href="#" target="_blank" class="flex-1 text-center border border-[#1B263B] text-[#1B263B] py-2 rounded-sm text-[10px] uppercase tracking-wide hover:bg-[#1B263B] hover:text-white transition-colors duration-300" data-lang-key="calendarButton">Calendar</a>
                     </div>
                 </div>
