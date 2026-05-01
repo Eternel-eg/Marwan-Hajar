@@ -23,7 +23,7 @@
             --color-cream: #FDFBF7;
         }
 
-        /* Enforce 9:16 Aspect Ratio on Body/Wrapper */
+        /* Enforce Dynamic Aspect Ratio */
         body {
             font-family: 'Lato', sans-serif;
             background-color: #1a1a1a; /* Dark background for desktop spaces */
@@ -33,14 +33,15 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
+            height: 100dvh; /* Fill full screen on mobile browsers */
             overflow: hidden;
         }
 
         #mobile-container {
-            width: 100vw;
-            height: calc(100vw * 16 / 9);
-            max-height: 100vh;
-            max-width: calc(100vh * 9 / 16);
+            width: 100%;
+            height: 100vh;
+            height: 100dvh; /* Adapts dynamically to device height without black bars */
+            max-width: 480px; /* Maximum width on desktop devices to keep the card look */
             position: relative;
             overflow: hidden;
             background-color: var(--color-cream);
@@ -49,7 +50,7 @@
 
         /* --- PRELOADER --- */
         #preloader {
-            position: absolute; /* Changed to absolute to stay inside container */
+            position: absolute; 
             top: 0;
             left: 0;
             width: 100%;
@@ -278,7 +279,8 @@
 
 <div id="mobile-container">
     <div id="preloader">
-        <img src="logo.png" alt="Logo" class="w-24 md:w-32 mb-6 animate-pulse" loading="eager" onerror="this.style.display='none'">
+        <!-- Increased width from w-24 (96px) to w-96 (384px) to make it 4X bigger -->
+        <img src="logo.png" alt="Logo" class="w-96 max-w-[80vw] mb-6 animate-pulse object-contain" loading="eager" onerror="this.style.display='none'">
         <div class="loader-spinner"></div>
         <div class="font-cinzel text-gold text-xs tracking-widest uppercase" data-lang-key="loading">Loading Invitation...</div>
     </div>
