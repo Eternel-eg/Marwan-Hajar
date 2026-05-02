@@ -729,24 +729,18 @@
                 <p class="font-cinzel text-[9px] tracking-[0.32em] uppercase text-gold/70 mb-5 reveal"
                    data-lang-key="galleryTitle">Our Moments</p>
 
-                <div class="grid grid-cols-2 gap-3">
-                    <div class="gallery-item reveal aspect-[9/16]">
+                <!-- Changed to a single image layout with elegant proportions -->
+                <div class="w-full max-w-[280px] mx-auto">
+                    <div class="gallery-item reveal aspect-[4/5] rounded-sm">
                         <img src="https://drive.google.com/thumbnail?id=15WVIhbEazoDXkmop6e0bdmwb7Jik7iKP&sz=s800"
                              alt="Couple" loading="lazy">
                     </div>
-                    <div class="gallery-item reveal delay-1 aspect-[9/16]">
-                        <img src="https://drive.google.com/thumbnail?id=1FaqwrE2QhsA197WtluSKpGh0U9KC4Yw7&sz=s800"
-                             alt="Ring" loading="lazy">
-                    </div>
                 </div>
 
-                <!-- ADDED: Gallery Action Buttons -->
-                <div class="grid grid-cols-2 gap-2 mt-4 reveal delay-2">
-                    <a href="https://drive.google.com/drive/u/1/folders/17EElliBCBA7E6I39k2gxptgNLuFun74kmf5U1rG_Vyt9AyV-66p--Iu-tgC-dDUGs7VaEH6A" target="_blank"
-                       class="action-btn bg-navy text-white hover:bg-gold/90 hover:text-navy"
-                       data-lang-key="viewAlbum">View Full Album</a>
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeKTdPPlSFnqpuH8Ov1taPNfA-phPjN9MeEiAbxt5HLDKuMWw/viewform" target="_blank"
-                       class="action-btn border border-navy text-navy hover:bg-navy hover:text-white"
+                <!-- ADDED: Gallery Action Buttons (Updated to just Upload Photo) -->
+                <div class="flex justify-center mt-5 reveal delay-1">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScjp6oUJES95k7MaYueSNC8uSbE2Jv17kXQX94KQasrX36YPg/viewform" target="_blank"
+                       class="action-btn border border-navy text-navy hover:bg-navy hover:text-white w-48"
                        data-lang-key="uploadPhoto">Upload Photo</a>
                 </div>
             </div>
@@ -780,7 +774,7 @@
                 </div>
 
                 <div class="grid grid-cols-2 gap-2">
-                    <a href="https://maps.app.goo.gl/xuNfErX5iLXQ2mEW8" target="_blank"
+                    <a href="https://maps.app.goo.gl/9ePfneHxKhoTQS5j6" target="_blank"
                        class="action-btn bg-navy text-white hover:bg-gold/90 hover:text-navy"
                        data-lang-key="mapButton">Map</a>
                     <a id="cal-celeb" href="#" target="_blank"
@@ -1026,7 +1020,6 @@ document.addEventListener('DOMContentLoaded', () => {
             enterButton:    'Enter',
             backButton:     '← Back',
             galleryTitle:   'Our Moments',
-            viewAlbum:      'View Full Album',
             uploadPhoto:    'Upload Photo',
             days: 'Days', hours: 'Hours', minutes: 'Mins', seconds: 'Secs',
             countdownOver:  'Today is the day!',
@@ -1061,7 +1054,6 @@ document.addEventListener('DOMContentLoaded', () => {
             enterButton:    'دخول',
             backButton:     'عودة →',
             galleryTitle:   'لحظاتنا',
-            viewAlbum:      'عرض الألبوم',
             uploadPhoto:    'رفع صورة',
             days: 'يوم', hours: 'ساعة', minutes: 'دقيقة', seconds: 'ثانية',
             countdownOver:  'إنه اليوم المنتظر!',
@@ -1114,7 +1106,7 @@ document.addEventListener('DOMContentLoaded', () => {
     langBtn.addEventListener('click', () => setLanguage(currentLang === 'en' ? 'ar' : 'en'));
 
     // ─── RSVP ────────────────────────────────────────────────
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyGqz-MLzmVakhe7N-vs-chQOGC3OLyBb4CZxt79_MPtdqHgGI2psPQYavps0wZA9n9bw/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbymlCWahkySYmWzLyWUSxWH28UjrJuuPlVg9SPmWnHH9BFvi7fx3F2OBIuP-uGpaiA_/exec';
     const rsvpForm      = document.getElementById('rsvp-form');
     const guestsSection = document.getElementById('guests-section');
     const rsvpMsgEl     = document.getElementById('rsvp-message');
