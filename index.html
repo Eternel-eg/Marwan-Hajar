@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Wedding Invitation - Marwan & Hajar</title>
     
-    <!-- Favicon -->
     <link rel="icon" href="https://drive.google.com/thumbnail?id=1A9ZVt5Fbh-r2aRnb79-x_6Fj10YVQ4O8&sz=s800">
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Tailwind Configuration (Fixes missing colors for the Map button) -->
     <script>
         tailwind.config = {
             theme: {
@@ -27,7 +24,6 @@
         }
     </script>
     
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cinzel:wght@400;500;700&family=Lato:wght@300;400&family=Dancing+Script:wght@400;600;700&family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
@@ -630,9 +626,6 @@
 
 <div id="mobile-container">
 
-    <!-- ══════════════════════════════════════════
-         PRELOADER
-    ═══════════════════════════════════════════ -->
     <div id="preloader">
         <img src="logo.png" alt="Logo"
              class="w-64 max-w-[72vw] mb-2 object-contain"
@@ -645,25 +638,18 @@
     </div>
 
 
-    <!-- ══════════════════════════════════════════
-         PAGE 1: DOORS
-    ═══════════════════════════════════════════ -->
     <div id="page1">
 
-        <!-- Left door -->
         <div class="door door-left">
             <div class="door-inner"></div>
         </div>
 
-        <!-- Right door -->
         <div class="door door-right">
             <div class="door-inner"></div>
         </div>
 
-        <!-- Floating gold particles -->
         <canvas id="particles-canvas"></canvas>
 
-        <!-- Top-right controls -->
         <div class="absolute top-5 right-5 z-50 flex items-center gap-2.5">
             <button id="lang-toggle-btn" class="control-pill">العربية</button>
             <button id="audio-control" class="control-circle">
@@ -675,7 +661,6 @@
             </button>
         </div>
 
-        <!-- Centre overlay -->
         <div id="invitation-overlay">
             <p class="overlay-label" data-lang-key=""></p>
             <h1 class="overlay-names" data-lang-key=""></h1>
@@ -686,32 +671,23 @@
             </button>
         </div>
 
-    </div><!-- /page1 -->
+    </div><div id="page2">
 
-
-    <!-- ══════════════════════════════════════════
-         PAGE 2: DETAILS
-    ═══════════════════════════════════════════ -->
-    <div id="page2">
-
-        <!-- Back button -->
         <button id="back-btn" class="fixed top-4 left-4 z-50 cursor-pointer">
             <span data-lang-key="backButton">← Back</span>
         </button>
 
         <div class="relative z-10 max-w-md mx-auto text-center px-6 pt-20 pb-10">
 
-            <!-- ─── HEADER ─── -->
             <div class="reveal mb-2">
                 <p class="font-cinzel text-[9px] tracking-[0.35em] uppercase text-gold/80 mb-5"
                    data-lang-key="togetherFamilies">Together with their families</p>
                 <h2 class="font-cormorant text-[42px] font-light tracking-[0.06em] text-navy leading-none mb-1"
-                    data-lang-key="coupleNames">Marwan &amp; Hajar</h2>
+                    data-lang-key="coupleNames">Marwan & Hajar</h2>
                 <p class="font-dancing text-[18px] text-gold/60 mb-5"
                    data-lang-key="inviteText">invite you to celebrate their wedding</p>
             </div>
 
-            <!-- ornament -->
             <div class="ornament mb-5 reveal delay-1">
                 <span class="ornament-symbol">✦ ✦ ✦</span>
             </div>
@@ -721,15 +697,12 @@
                     data-lang-key="weddingDate">July 3rd 2026</h3>
             </div>
 
-            <!-- ─── COUNTDOWN ─── -->
             <div id="countdown" class="flex justify-center gap-3 mb-16 reveal delay-2"></div>
 
-            <!-- ─── GALLERY ─── -->
             <div class="mb-16">
                 <p class="font-cinzel text-[9px] tracking-[0.32em] uppercase text-gold/70 mb-5 reveal"
                    data-lang-key="galleryTitle">Our Moments</p>
 
-                <!-- Changed to a single image layout with elegant proportions -->
                 <div class="w-full max-w-[280px] mx-auto">
                     <div class="gallery-item reveal aspect-[4/5] rounded-sm">
                         <img src="https://drive.google.com/thumbnail?id=15WVIhbEazoDXkmop6e0bdmwb7Jik7iKP&sz=s800"
@@ -737,7 +710,6 @@
                     </div>
                 </div>
 
-                <!-- ADDED: Gallery Action Buttons (Updated to just Upload Photo) -->
                 <div class="flex justify-center mt-5 reveal delay-1">
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLScjp6oUJES95k7MaYueSNC8uSbE2Jv17kXQX94KQasrX36YPg/viewform" target="_blank"
                        class="action-btn border border-navy text-navy hover:bg-navy hover:text-white w-48"
@@ -745,7 +717,6 @@
                 </div>
             </div>
 
-            <!-- ─── EVENT CARD ─── -->
             <div class="info-card rounded-sm p-6 mb-6 reveal text-left rtl:text-right">
                 <div class="flex items-center gap-3 mb-5">
                     <span class="text-[22px]" style="animation: soft-pulse 3s infinite">🥂</span>
@@ -783,12 +754,10 @@
                 </div>
             </div>
 
-            <!-- ornament between cards -->
             <div class="ornament my-8 reveal">
                 <span class="ornament-symbol">✦</span>
             </div>
 
-            <!-- ─── RSVP ─── -->
             <div id="rsvp-section" class="rounded-sm p-6 mb-16 reveal">
                 <div class="relative z-10">
                     <h3 class="font-cinzel text-[18px] text-gold mb-1 tracking-widest"
@@ -809,7 +778,6 @@
                         <div>
                             <span class="block font-cinzel text-[9px] tracking-[0.28em] uppercase text-gold/70 mb-3"
                                   data-lang-key="rsvpAttend">Attendance</span>
-                            <!-- FIXED: Changed to stack vertically on mobile to keep exact same width -->
                             <div class="flex flex-col gap-2.5">
                                 <div>
                                     <input type="radio" id="rsvp-yes" name="attending"
@@ -830,11 +798,20 @@
                             </div>
                         </div>
 
-                        <div id="guests-section" class="hidden opacity-0 -translate-y-2 transition-all duration-500">
-                            <label for="guests" class="block font-cinzel text-[9px] tracking-[0.28em] uppercase text-gold/70 mb-2"
-                                   data-lang-key="rsvpGuestsCount">Number of Number Of Guests Including You</label>
-                            <input type="number" id="guests" name="guests" min="0"
-                                   class="rsvp-input">
+                        <div id="guests-section" class="hidden opacity-0 -translate-y-2 transition-all duration-500 space-y-5">
+                            <div>
+                                <label for="guests" class="block font-cinzel text-[9px] tracking-[0.28em] uppercase text-gold/70 mb-2"
+                                       data-lang-key="rsvpGuestsCount">Number Of Guests Including You</label>
+                                <input type="number" id="guests" name="guests" min="1" max="2"
+                                       class="rsvp-input">
+                            </div>
+                            
+                            <div>
+                                <label id="partner-label" for="partner" class="block font-cinzel text-[9px] tracking-[0.28em] uppercase text-gold/70 mb-2"
+                                       data-lang-key="rsvpPartnerOpt">+1 Partner Name (Optional)</label>
+                                <input type="text" id="partner" name="partner"
+                                       class="rsvp-input" placeholder="Their full name">
+                            </div>
                         </div>
 
                         <div>
@@ -854,22 +831,17 @@
                 </div>
             </div>
 
-            <!-- ─── FOOTER ─── -->
             <footer class="reveal pb-4">
                 <div class="ornament mb-6">
                     <span class="ornament-symbol">✦</span>
                 </div>
                 <p class="font-cinzel text-[9px] tracking-[0.3em] uppercase text-navy/40"
-                   data-lang-key="footer">Marwan &amp; Hajar ✦ 2026</p>
-                <span class="eternel">E T E R N E L · E G &nbsp;©&nbsp; 2026</span>
+                   data-lang-key="footer">Marwan & Hajar ✦ 2026</p>
+                <span class="eternel">E T E R N E L · E G  ©  2026</span>
             </footer>
 
         </div>
-    </div><!-- /page2 -->
-
-</div><!-- /mobile-container -->
-
-<audio id="background-music" loop preload="none">
+    </div></div><audio id="background-music" loop preload="none">
     <source src="music.mp3" type="audio/mpeg">
     <source src="https://drive.google.com/file/d/1v4WxnmkD6wfi1D7200HmvSnXPBCzHtO0" type="audio/mpeg">
 </audio>
@@ -1014,7 +986,7 @@ document.addEventListener('DOMContentLoaded', () => {
         en: {
             loading:        'Loading Invitation…',
             togetherFamilies: 'Together with their families',
-            coupleNames:    'Marwan &amp; Hajar',
+            coupleNames:    'Marwan & Hajar',
             inviteText:     'invite you to celebrate their wedding',
             weddingDate:    'July 3rd · 2026',
             enterButton:    'Enter',
@@ -1037,13 +1009,16 @@ document.addEventListener('DOMContentLoaded', () => {
             rsvpYes:        'Joyfully Accept',
             rsvpNo:         'Regretfully Decline',
             rsvpGuestsCount:'Number Of Guests Including You',
+            // Updated Partner Translations (Optional/Required)
+            rsvpPartnerOpt: '+1 Partner Name (Optional)', 
+            rsvpPartnerReq: '+1 Partner Name (Required)*',
             rsvpMessage:    'Leave a message for the couple',
             rsvpSubmit:     'Confirm',
             rsvpSuccess:    'Thank you. We look forward to seeing you.',
             rsvpError:      'An error occurred. Please try again.',
             rsvpLoading:    'Sending…',
             coupleError:    'Only couples allowed (max 2 people).',
-            footer:         'Marwan &amp; Hajar ✦ 2026'
+            footer:         'Marwan & Hajar ✦ 2026'
         },
         ar: {
             loading:        'جاري التحميل…',
@@ -1071,6 +1046,9 @@ document.addEventListener('DOMContentLoaded', () => {
             rsvpYes:        'تأكيد الحضور',
             rsvpNo:         'أعتذر عن الحضور',
             rsvpGuestsCount:'عدد الأفراد الإضافيين',
+            // Updated Partner Translations Arabic (Optional/Required)
+            rsvpPartnerOpt: 'اسم المرافق (اختياري)', 
+            rsvpPartnerReq: 'اسم المرافق (مطلوب)*', 
             rsvpMessage:    'أرسل رسالة للعروسين',
             rsvpSubmit:     'تأكيد',
             rsvpSuccess:    'شكراً لك. بانتظار تشريفكم.',
@@ -1111,19 +1089,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const guestsSection = document.getElementById('guests-section');
     const rsvpMsgEl     = document.getElementById('rsvp-message');
     const submitBtn     = document.getElementById('rsvp-submit-btn');
+    
+    // Partner dynamic validation elements
+    const guestsInput   = document.getElementById('guests');
+    const partnerInput  = document.getElementById('partner');
+    const partnerLabel  = document.getElementById('partner-label');
 
-    // Show/hide Number Of Guests Including You on radio change
+    // Make Partner Name mandatory if guests = 2
+    guestsInput.addEventListener('input', (e) => {
+        if (e.target.value === '2') {
+            partnerInput.required = true;
+            partnerLabel.dataset.langKey = 'rsvpPartnerReq';
+            partnerLabel.innerHTML = translations[currentLang].rsvpPartnerReq;
+        } else {
+            partnerInput.required = false;
+            partnerLabel.dataset.langKey = 'rsvpPartnerOpt';
+            partnerLabel.innerHTML = translations[currentLang].rsvpPartnerOpt;
+        }
+    });
+
+    // Show/hide Guests Section on radio change
     rsvpForm.querySelectorAll('[name="attending"]').forEach(radio => {
         radio.addEventListener('change', e => {
             if (e.target.value === 'Yes') {
                 guestsSection.classList.remove('hidden');
                 setTimeout(() => guestsSection.classList.remove('opacity-0', '-translate-y-2'), 10);
-                document.getElementById('guests').required = true;
+                guestsInput.required = true;
             } else {
                 guestsSection.classList.add('opacity-0', '-translate-y-2');
                 setTimeout(() => guestsSection.classList.add('hidden'), 350);
-                document.getElementById('guests').required = false;
-                document.getElementById('guests').value = '';
+                
+                // Clear the fields when hidden
+                guestsInput.required = false;
+                guestsInput.value = '';
+                partnerInput.required = false;
+                partnerInput.value = ''; 
+                
+                // Reset Partner Label
+                partnerLabel.dataset.langKey = 'rsvpPartnerOpt';
+                partnerLabel.innerHTML = translations[currentLang].rsvpPartnerOpt;
             }
         });
     });
@@ -1143,11 +1147,13 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Updated fetch payload to include the partner name
         fetch(SCRIPT_URL, {
             method: 'POST', mode: 'no-cors', cache: 'no-cache',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 name: fd.get('name'),
+                partnerName: fd.get('partner') || '', // Send the partner name
                 attending,
                 guests: attending === 'Yes' ? fd.get('guests') : 0,
                 message: fd.get('message')
