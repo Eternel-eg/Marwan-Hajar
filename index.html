@@ -603,8 +603,8 @@
 
         /* ─── SOFT PULSE ANIMATION ─── */
         @keyframes soft-pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.65; }
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.05); }
         }
 
         /* RTL support */
@@ -758,11 +758,11 @@
                 <span class="ornament-symbol">✦</span>
             </div>
 
-            <div id="rsvp-section" class="rounded-sm p-6 mb-16 reveal">
-                <div class="relative z-10">
+            <div id="rsvp-section" class="rounded-sm p-6 mb-16 reveal min-h-[350px]">
+                <div class="relative z-10 w-full">
                     <h3 class="font-cinzel text-[18px] text-gold mb-1 tracking-widest"
                         data-lang-key="rsvpTitle">RSVP</h3>
-                    <p class="font-cormorant italic text-gray-400 text-[13px] mb-7"
+                    <p id="rsvp-subtitle" class="font-cormorant italic text-gray-400 text-[13px] mb-7"
                        data-lang-key="rsvpSubtitle">Kindly respond by June 15th</p>
 
                     <form id="rsvp-form" class="text-left rtl:text-right space-y-5">
@@ -828,6 +828,18 @@
                     </form>
 
                     <p id="rsvp-message" class="mt-5 text-center font-cormorant italic text-[13px] min-h-[18px]"></p>
+
+                    <!-- SUCCESS STATE CONTAINER -->
+                    <div id="rsvp-success-state" class="hidden flex-col items-center justify-center py-6 text-center transition-all duration-700 opacity-0 scale-95">
+                        <div class="w-16 h-16 rounded-full border border-gold bg-gold/10 flex items-center justify-center mb-6 text-gold mx-auto" style="animation: soft-pulse 2.5s infinite">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <h4 class="font-cormorant text-[38px] text-white mb-3 leading-none" data-lang-key="rsvpThankYou">Thank You!</h4>
+                        <p class="font-cinzel text-[10px] tracking-[0.2em] uppercase text-gold/80" data-lang-key="rsvpSuccessMsg">Your RSVP has been successfully submitted</p>
+                    </div>
+
                 </div>
             </div>
 
@@ -1018,7 +1030,10 @@ document.addEventListener('DOMContentLoaded', () => {
             rsvpError:      'An error occurred. Please try again.',
             rsvpLoading:    'Sending…',
             coupleError:    'Only couples allowed (max 2 people).',
-            footer:         'Marwan & Hajar ✦ 2026'
+            footer:         'Marwan & Hajar ✦ 2026',
+            // Success messages added
+            rsvpThankYou:   'Thank You!',
+            rsvpSuccessMsg: 'Your RSVP has been successfully submitted'
         },
         ar: {
             loading:        'جاري التحميل…',
@@ -1055,7 +1070,10 @@ document.addEventListener('DOMContentLoaded', () => {
             rsvpError:      'حدث خطأ. يرجى المحاولة مرة أخرى.',
             rsvpLoading:    'جار الإرسال…',
             coupleError:    'يسمح فقط بحضور شخصين (كوبل كحد أقصى).',
-            footer:         'مروان و هاجر ✦ ٢٠٢٦'
+            footer:         'مروان و هاجر ✦ ٢٠٢٦',
+            // Success messages added
+            rsvpThankYou:   'شكراً لك!',
+            rsvpSuccessMsg: 'تم إرسال تأكيد حضورك بنجاح'
         }
     };
 
@@ -1089,6 +1107,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const guestsSection = document.getElementById('guests-section');
     const rsvpMsgEl     = document.getElementById('rsvp-message');
     const submitBtn     = document.getElementById('rsvp-submit-btn');
+    const rsvpSubtitle  = document.getElementById('rsvp-subtitle');
+    const successState  = document.getElementById('rsvp-success-state');
     
     // Partner dynamic validation elements
     const guestsInput   = document.getElementById('guests');
@@ -1160,9 +1180,19 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         })
         .then(() => {
-            showRsvpMsg(translations[currentLang].rsvpSuccess, true);
-            rsvpForm.reset();
-            guestsSection.classList.add('hidden', 'opacity-0', '-translate-y-2');
+            // Hide the Form, Subtitle, and Message Elements
+            rsvpForm.classList.add('hidden');
+            if (rsvpSubtitle) rsvpSubtitle.classList.add('hidden');
+            rsvpMsgEl.classList.add('hidden');
+            
+            // Show Success UI State
+            successState.classList.remove('hidden');
+            successState.classList.add('flex');
+            
+            // Allow time for DOM to register 'flex' before transitioning opacity/scale
+            setTimeout(() => {
+                successState.classList.remove('opacity-0', 'scale-95');
+            }, 50);
         })
         .catch(() => showRsvpMsg(translations[currentLang].rsvpError, false))
         .finally(() => {
